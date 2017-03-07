@@ -1,0 +1,23 @@
+﻿.jumbotron {
+    position: relative;
+    background: #000 url(//ssel-apps.eecs.umich.edu/static/images/lnf-login-screen.jpg) center center;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    overflow: hidden;
+}
+
+    .jumbotron h1 {
+        text-align: center;
+        font-weight: 600;
+        color: #DEBC0B;
+        text-transform: none;
+        text-shadow: 4px 3px 0 #422802, 9px 8px 0 rgba(0,0,0,0.15);
+    }
+
+    .jumbotron p {
+        text-align: center;
+        font-weight: 300;
+        color: #FFFFFF;
+        text-transform: none;
+    }

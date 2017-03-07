@@ -1,0 +1,145 @@
+﻿html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    background-color: #A0A0A0;
+}
+
+.jclock {
+    padding-top: 5px;
+}
+
+.main_box {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+.menu_container {
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 999;
+}
+
+.menu_box {
+    background-color: #FFFFFF;
+    padding: 10px;
+    margin: 0px;
+    border-bottom: solid 5px #A0A0A0;
+}
+
+.top_menu {
+    background-color: #FFFFFF;
+    width: 864px;
+}
+
+.content_container {
+    margin: 0px;
+    height: 100%;
+    padding: 20px 20px 20px 20px;
+    background: #CCCCCC url('/sselOnLine/images/gradient.jpg') repeat-x bottom;
+    overflow: visible;
+}
+
+.content_box {
+    min-height: 600px;
+    height: auto !important;
+    height: 500px;
+    border: solid 1px #808080;
+    background-color: #FFFFFF;
+    padding: 10px;
+}
+
+.app {
+    font-family: Arial;
+}
+
+    .app .title {
+        font-size: 10pt;
+        font-weight: bold;
+        padding: 10px;
+        background-color: #F8D94A;
+        border: solid 1px #B49607;
+        color: #304797;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+        .app .title a:link, .app .title a:visited, .app .title a:active {
+            font-size: 10pt;
+            font-weight: bold;
+            color: #304797;
+            text-decoration: none;
+        }
+
+        .app .title a:hover {
+            font-size: 10pt;
+            font-weight: bold;
+            color: #304797;
+            text-decoration: underline;
+        }
+
+    .app .main {
+        margin-top: 10px;
+    }
+
+    .app .grid {
+        border-collapse: collapse;
+        border: none;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+        .app .grid th {
+            padding: 6px;
+            font-size: 10pt;
+            border-top: solid 1px #808080;
+            border-right: none;
+            border-left: none;
+            border-bottom: solid 1px #808080;
+            background-color: #E0E0E0;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .app .grid .first_header_column {
+            border-left: solid 1px #808080;
+        }
+
+        .app .grid .last_header_column {
+            border-right: solid 1px #808080;
+        }
+
+        .app .grid td {
+            padding: 6px;
+            font-size: 10pt;
+            border: solid 1px #CCCCCC;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+            .app .grid td.item {
+                background-color: #E8E8E8;
+            }
+
+            .app .grid td.altitem {
+                background-color: #F8F8F8;
+            }
+
+    .app .button_container {
+        text-align: center;
+        padding: 5px;
+    }
+
+    .app .button {
+    }
+
+.session {
+    display: none;
+}

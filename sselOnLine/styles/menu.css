@@ -1,0 +1,158 @@
+﻿.menu
+{
+    background-color: #fae685;
+    border-top: solid 1px #b49607;
+    border-right: solid 1px #b49607;
+    border-bottom: none;
+    border-left: solid 1px #b49607;
+}
+
+.menugroup
+{
+    float: left;
+}
+
+.menugroup_off
+{
+}
+
+.menugroup_on
+{
+}
+
+.topmenu
+{
+    height: 65px;
+    border-right: solid 1px #b49607;
+    cursor: pointer;
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: bold;
+    color: #304797;
+}
+
+.topmenu > div
+{
+    padding: 40px 10px 0px 10px;
+}
+
+.topmenu_last
+{
+    
+}
+
+.topmenu_off
+{
+    background-color: #f8d94a;
+    border-bottom: solid 1px #b49607;
+}
+
+.topmenu_on
+{
+    background-color: #fae685;
+    border-bottom: none;
+    height: 66px;
+}
+
+.menubtn
+{
+    height: 25px;
+    border-right: solid 1px #b49607;
+    cursor: pointer;
+    font-size: 10pt;
+    font-weight: bold;
+    font-family: Arial;
+    color: #304797;
+}
+
+a.menubtn
+{
+    padding: 40px 10px 0px 10px;
+    display: block;
+    text-decoration: none;
+}
+
+.menubtn_off
+{
+    background-color: #f8d94a;
+    border-bottom: solid 1px #b49607;
+}
+
+.menubtn_on
+{
+    background-color: #fae685;
+    border-bottom: solid 1px #b49607;
+}
+
+.submenu
+{
+    border-top: none;
+    border-right: solid 1px #b49607;
+    border-bottom: solid 1px #b49607;
+    border-left: solid 1px #b49607;
+    background-color: #fae685;
+    position: absolute;
+    margin-left: -1px;
+    margin-top: 0px;
+}
+
+.submenu_off
+{
+    display: none;
+}
+
+.submenu_on
+{
+    display: block;
+}
+
+.menuitem
+{
+    font-family: Arial;
+    font-size: 10pt;
+    font-weight: bold;
+    padding: 2px 10px 2px 10px;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+}
+
+.menuitem_off
+{
+    border: solid 1px #fae685;
+    color: #304797;
+}
+
+.menuitem_on
+{
+    border: solid 1px #ff0000;
+    color: #f8d94a;
+    background: url('/sselOnLine/images/ItemBackground.gif') repeat-x;
+}
+
+.menulbl
+{
+    float: left;
+    background-color: #f8d94a;
+    border-bottom: solid 1px #b49607;
+    width: 350px;
+    height: 65px;
+    font-size: 10pt;
+    font-weight: bold;
+    font-family: Arial;
+    color: #304797;
+}
+
+.menulbl_off
+{
+}
+
+.menulbl_on
+{
+}
+
+.menulbl > div
+{
+    padding-top: 20px;
+    text-align: center;
+}

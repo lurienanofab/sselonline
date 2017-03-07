@@ -1,0 +1,63 @@
+﻿.applet .question, .applet-admin .admin-question
+{
+    padding: 5px;
+}
+.applet-admin .admin-question .admin-new-question-text
+{
+    width: 400px;
+    height: 60px;
+}
+.applet .answer .answer-text
+{
+    width: 340px;
+    height: 60px;
+}
+.applet-admin .admin-current-question-text
+{
+    width: 240px;
+    height: 60px;
+}
+.applet .answer
+{
+    padding: 5px;
+    min-height: 50px;
+}
+.applet-admin .admin-question .admin-new-question-text
+{
+    width: 400px;
+    height: 60px;
+}
+.applet .answer .answer-text
+{
+    width: 340px;
+    height: 60px;
+}
+.applet-admin .admin-current-question-text
+{
+    width: 240px;
+    height: 60px;
+}
+.survey-admin-current-question
+{
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+.survey-admin-current-question th, .survey-admin-current-question td
+{
+    padding: 3px;
+}
+.survey-admin-current-question th
+{
+    text-align: center;
+    font-weight: bold;
+    border: solid 1px #D2D2D2;
+    background-color: #DDDDDD;
+    color: #808080;
+}
+.survey-admin-current-question td
+{
+}
+.survey-admin-answer-list li
+{
+    padding-bottom: 5px;
+}

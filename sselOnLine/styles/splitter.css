@@ -1,0 +1,61 @@
+﻿/*
+ * Splitter container. Set this to the desired width and height
+ * of the combined left and right panes. In this example, the
+ * height is fixed and the width is the full width of the body,
+ * less the margin on the splitter itself.
+ */
+.app .split_panel
+{
+    border: none;
+    overflow: visible; /* No padding allowed */
+}
+
+
+/*
+ * Left-side element of the splitter. Use pixel units for the
+ * min-width and max-width; the splitter plugin parses them to
+ * determine the splitter movement limits. Set the width to
+ * the desired initial width of the element; the plugin changes
+ * the width of this element dynamically.
+ */
+.app .split_panel .left_pane
+{
+    overflow: auto;
+    background-color: #FFFFFF;
+    border: solid 1px #CCCCCC;
+    /* No margin or border allowed */
+}
+
+/*
+ * Right-side element of the splitter.
+ */
+.app .split_panel .right_pane
+{
+    overflow: auto;
+    background-color: #FFFFFF;
+    border: solid 1px #CCCCCC;
+    /* No margin or border allowed */
+}
+
+.app .split_panel .pane_content
+{
+    padding: 5px;
+    white-space: nowrap;
+}
+
+/* 
+ * Splitter bar style; the .active class is added when the
+ * mouse is over the splitter or the splitter is focused
+ * via the keyboard taborder or an accessKey. 
+ */
+.app .split_panel .vsplitbar
+{
+    width: 8px;
+    background: #EBEBEB url('/sselOnLine/images/vgrabber.gif') no-repeat center;
+}
+
+.app .split_panel .vsplitbar.active
+{
+    background: #EBEBEB url('/sselOnLine/images/vgrabber.gif') no-repeat center;
+    opacity: 0.7;
+}

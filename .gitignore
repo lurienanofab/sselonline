@@ -1,0 +1,10 @@
+.vs/
+bin/
+obj/
+packages/
+TestResults/
+*.suo
+*.user
+sselOnLine/Web.config
+sselOnLine/Web.Debug.config
+sselOnLine/Web.Release.config
