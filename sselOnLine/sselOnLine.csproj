@@ -147,6 +147,7 @@
     <Content Include="images\mnuHlp.gif" />
     <Content Include="images\mnuLog.gif" />
     <Content Include="images\mnuRep.gif" />
+    <Content Include="images\picture-contest-2017-small.jpg" />
     <Content Include="images\picture-contest.png" />
     <Content Include="images\vgrabber.gif" />
     <Content Include="Login.aspx" />
