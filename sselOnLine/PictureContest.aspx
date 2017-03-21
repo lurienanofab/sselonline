@@ -131,8 +131,9 @@
                     <h3 class="panel-title">Image Uploader</h3>
                 </div>
                 <div class="panel-body">
-                    <asp:FileUpload ID="fileImages" AllowMultiple="true" runat="server" ErrorMessage="Only .jpg, jpeg, .png, .tiff"
-                        ValidationExpression="(.*\.([Jj][Pp][Gg])|.*\.([Jj][Pp][Ee][Gg])|.*\.([pP][nN][gG])|.*\.([tT][iI][iI][fF])$)" class="btn btn-success" />
+                    <asp:FileUpload ID="fileImages" AllowMultiple="true" runat="server" ErrorMessage="Only .jpg, .jpeg, .gif, .png"
+                        ValidationExpression="(.*\.([Jj][Pp][Gg])|.*\.([Jj][Pp][Ee][Gg])|.*\.([gG][iI][fF])|.*\.([pP][nN][gG])" class="btn btn-success" />
+                    
                     <br />
 
                     <div style="margin-bottom: 20px;">

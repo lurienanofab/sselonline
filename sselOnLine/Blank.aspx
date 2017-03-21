@@ -68,30 +68,38 @@
     <%--<link rel="stylesheet" href="scripts/jquery.messenger/jquery.messenger.css" />--%>
     <link rel="stylesheet" href="<%=GetStaticUrl("styles/master.css")%>" />
     <link rel="stylesheet" href="<%=GetStaticUrl("lib/jquery-ui/themes/smoothness/jquery-ui.min.css") %>" />
-	
-	<script src="<%=GetStaticUrl("lib/jquery/jquery.min.js")%>"></script>
+
+    <script src="<%=GetStaticUrl("lib/jquery/jquery.min.js")%>"></script>
 </head>
 <body>
     <form id="form1" runat="server">
         <div class="blank-content">
             <uc:ScrollPositionTool runat="server" ID="ScrollPositionTool1" />
-            
-			<div class="alerts"></div>
-            
-			<asp:PlaceHolder runat="server" ID="phStaging" Visible="false">
+
+            <div class="alerts"></div>
+
+            <asp:PlaceHolder runat="server" ID="phStaging" Visible="false">
                 <div style="margin-bottom: 20px;">
                     <a href="http://staging.ssel-sched.eecs.umich.edu/sselscheduler" target="_top" style="font-size: 20px; font-weight: bold; line-height: 30px;">LNF Scheduler Staging Site</a>
                 </div>
             </asp:PlaceHolder>
-			
+
             <div style="margin-bottom: 20px;">
                 <a href="/sselscheduler" target="_top" style="font-size: 20px; font-weight: bold; line-height: 30px;">LNF Scheduler for Users on Mobile Platforms</a>
-            </div>			
-			
-			<div style="margin-bottom: 20px;">
+            </div>
+
+            <div style="margin-bottom: 20px;">
                 <a style="font-size: 20px; font-weight: bold; line-height: 30px;" target="_blank" href="https://calendar.google.com/calendar/embed?src=lnf.umich.edu_0r8i90tksqtv0lm7e66olv3ri4@group.calendar.google.com&ctz=America/New_York&pli=1">After-Hour Buddy Calendar</a>
             </div>
-			
+
+            <div style="padding: 20px; margin-bottom: 20px; border: solid 1px #aaa; border-radius: 4px; width: 350px; text-align: center; background-color: #f5f5f5;">
+                <a href="PictureContest.aspx" target="_blank" style="font-size: 20px; font-weight: bold; line-height: 30px;">
+                    <img src="images/picture-contest-2017-small.jpg" /><br />
+                    Click here to submit your image!<br />
+                    Deadline to submit - March 20, 2017
+                </a>
+            </div>
+
             <%--<uc:Messenger runat="server" ID="Messenger1" />--%>
             <%--<uc:LoginRequirement runat="server" ID="LoginRequirement1" />--%>
             <%--<uc:SurveyNameTags runat="server" ID="SuveyNameTags1" SurveyType="NAMETAGS" />--%>

@@ -361,7 +361,7 @@ namespace sselOnLine
                     continue;
 
                 // make sure file type is allowed
-                string ext = Path.GetExtension(userPostedFile.FileName);
+                string ext = Path.GetExtension(userPostedFile.FileName).ToLower();
 
                 if (!GetAllowedFileTypes().Contains(ext))
                 {
