@@ -96,7 +96,7 @@
                 <a href="PictureContest.aspx" target="_blank" style="font-size: 20px; font-weight: bold; line-height: 30px;">
                     <img src="images/picture-contest-2017-small.jpg" /><br />
                     Click here to submit your image!<br />
-                    Deadline to submit - March 20, 2017
+                    Deadline to submit - April 7, 2017
                 </a>
             </div>
 
