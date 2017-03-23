@@ -159,7 +159,7 @@
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <div style="text-align: center;">
-                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=" id="imagepreview" style="width: 500px; height: 464px;">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=" id="imagepreview" style="width: 500px;">
                     </div>
                     <hr />
                     <div class="text-muted" id="imgdesc">
