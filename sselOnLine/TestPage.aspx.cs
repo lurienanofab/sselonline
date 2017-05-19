@@ -82,10 +82,7 @@ namespace sselOnLine
             {
                 if (!string.IsNullOrEmpty(TestName))
                 {
-                    StreamReader reader = new StreamReader(GetTestFilePath(TestName + ".xml"));
-                    XmlSerializer deserializer = new XmlSerializer(typeof(TestRoot));
-                    xmlTestRoot = (TestRoot)deserializer.Deserialize(reader);
-                    reader.Close();
+                    xmlTestRoot = TestUtility.GetTestRoot(GetTestFilePath(TestName + ".xml"));
                 }
             }
 
@@ -293,7 +290,7 @@ namespace sselOnLine
                 clientid = CurrentUser.ClientID;
 
             // @Answer was a comma separated string but now a subset of questions might be used, and also the order might be random, so we also need to save the QuestionNumber along with the user answer.
-            var answers =  _QuestionsList.Select(x => new { x.QuestionNumber, x.UserSelectedAnswer }).ToArray();
+            var answers =  _QuestionsList.Select(x => new { q = x.QuestionNumber, a = x.UserSelectedAnswer }).ToArray();
             string answersJson = JsonConvert.SerializeObject(answers);
 
             using (var dba = DA.Current.GetAdapter())

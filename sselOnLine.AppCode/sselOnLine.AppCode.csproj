@@ -83,6 +83,7 @@
     <Compile Include="TestPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="TestUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\lnf\LNF.Models\LNF.Models.csproj">

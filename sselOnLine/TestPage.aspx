@@ -112,7 +112,7 @@
                 <div style="margin-bottom: 20px;">
                     <asp:Label runat="server" ID="lblMsg" ForeColor="Red" Font-Bold="true"></asp:Label><br />
                     This is an open book exam. You may refer to the
-                    <asp:HyperLink runat="server" ID="hlinkManual"> <%=GetTestTitle()%>Presentation for LNF</asp:HyperLink>. while taking the quiz.<br />
+                    <asp:HyperLink runat="server" ID="hlinkManual"> <%=GetTestTitle()%>Presentation for LNF</asp:HyperLink> while taking the quiz.<br />
                     <strong>Attention:</strong> Each test page has a  <%=GetExamTime()%> minutes limit. If you do not submit your answers within <%=GetExamTime()%> minutes, the session will time out and your data will be lost.<br />
                     If you are NOT planning to use the LNF, please email Sandrine Martin (<a href="mailto:sandrine@umich.edu">sandrine@umich.edu</a>) and let her know why you need the test.<br />
                 </div>

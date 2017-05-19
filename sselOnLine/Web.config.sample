@@ -27,6 +27,7 @@
   </lnf>
 
   <appSettings>
+    <add key="SecretKey" value="*****" />
     <add key="StaticHost" value="//ssel-apps.eecs.umich.edu/static/" />
     <add key="EmailHost" value="" />
     <add key="TestingEmail" value="xxxxx" />

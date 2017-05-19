@@ -123,7 +123,7 @@ namespace sselOnLine.AppCode.BLL
         {
             if (pw != ClientDB.UniversalPassword)
             {
-                string hash = Encryption.Hash(pw);
+                string hash = Encryption.MD5(pw);
                 using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["cnSselData"].ConnectionString))
                 using (SqlCommand cmd = new SqlCommand("Client_Update", conn))
                 {
