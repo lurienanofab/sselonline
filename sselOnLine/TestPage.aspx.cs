@@ -7,14 +7,12 @@ using sselOnLine.AppCode.BLL;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Xml.Serialization;
 
 namespace sselOnLine
 {
@@ -50,12 +48,13 @@ namespace sselOnLine
                 var test = GetXMLTestRoot();
 
                 Page.Title = test.TestTitle;
-                hlinkManual.NavigateUrl = GetXMLTestRoot().TestManualLink;
-                hypStartOver1.NavigateUrl = "~/Test.aspx?testname=" + TestName;
-                hypStartOver2.NavigateUrl = "~/Test.aspx?testname=" + TestName;
+                litTestTitle.Text = test.TestTitle;
+                var startOverUrl = string.Format("~/Test.aspx?testname={0}", TestName);
+                hypStartOver1.NavigateUrl = startOverUrl;
+                hypStartOver2.NavigateUrl = startOverUrl;
                 panRecaptcha.Visible = test.UseRecaptcha;
 
-                string testsuburl = VirtualPathUtility.ToAbsolute(string.Format("~/Test.aspx?testname={0}", TestName));
+                string testsuburl = VirtualPathUtility.ToAbsolute(startOverUrl);
 
                 if (Page.User.Identity.IsAuthenticated)
                 {
@@ -245,8 +244,8 @@ namespace sselOnLine
 
                         results += WrongAnswersHTML(q => q.ToHtml(true));
 
-                        litPassedMessage.Text = results;
-                        litTestAdminEmail.Text = string.Format(@"<a href=""mailto:{0}"">{0}</a>", ConfigurationManager.AppSettings["EmailSafetyTestAdmin"]);
+                        litTestResults.Text = results;
+                        litPassedMessage.Text = string.Format("Thank you for taking the {0}. A confirmation email has been sent to you and the test administrator (<a href=\"mailto:{1}\">{1}</a>). You may now close this page.", test.TestTitle, ConfigurationManager.AppSettings["EmailSafetyTestAdmin"]);
                         panPassedMessage.Visible = true;
                         panTestPage.Visible = false;
                     }
@@ -360,6 +359,7 @@ namespace sselOnLine
         {
             panTestPage.Visible = false;
             panWrongAnswers.Visible = true;
+            litFailedMessage.Text = string.Format("Sorry, you have not reached the minimum score for the {0}. Please review the manual and take the test again.", GetXMLTestRoot().TestTitle);
             litWrongAnswers.Text = WrongAnswersHTML(q => q.ToHtml(false));
         }
 
@@ -475,11 +475,6 @@ namespace sselOnLine
         protected string GetExamTime()
         {
             return GetXMLTestRoot().ExamTime.ToString();
-        }
-
-        protected string GetTestTitle()
-        {
-            return GetXMLTestRoot().TestTitle;
         }
 
         protected int GetQuestionStartNumber()

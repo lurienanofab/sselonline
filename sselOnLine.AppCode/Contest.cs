@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
-using MongoDB.Driver;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using LNF.Models.Data;
 using LNF.Repository;
 using LNF.Repository.Data;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Driver;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 
 namespace sselOnLine.AppCode
 {
@@ -227,7 +224,7 @@ namespace sselOnLine.AppCode
 
         public string LName { get; set; }
 
-        public string DisplayName { get { return Client.GetDisplayName(LName, FName); } }
+        public string DisplayName { get { return ClientModel.GetDisplayName(LName, FName); } }
 
         public static ContestUser Create(int clientId)
         {

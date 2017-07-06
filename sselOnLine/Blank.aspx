@@ -92,13 +92,28 @@
                 <a style="font-size: 20px; font-weight: bold; line-height: 30px;" target="_blank" href="https://calendar.google.com/calendar/embed?src=lnf.umich.edu_0r8i90tksqtv0lm7e66olv3ri4@group.calendar.google.com&ctz=America/New_York&pli=1">After-Hour Buddy Calendar</a>
             </div>
 
-            <div style="padding: 20px; margin-bottom: 20px; border: solid 1px #aaa; border-radius: 4px; width: 350px; text-align: center; background-color: #f5f5f5;">
-                <a href="PictureContest.aspx" target="_blank" style="font-size: 20px; font-weight: bold; line-height: 30px;">
-                    <img src="images/picture-contest-2017-small.jpg" /><br />
-                    Click here to submit your image!<br />
-                    Deadline to submit - April 7, 2017
-                </a>
-            </div>
+            <asp:PlaceHolder runat="server" Visible="false">
+                <div style="padding: 20px; margin-bottom: 20px; border: solid 1px #aaa; border-radius: 4px; width: 350px; text-align: center; background-color: #f5f5f5;">
+                    <a href="PictureContest.aspx" target="_blank" style="font-size: 20px; font-weight: bold; line-height: 30px;">
+                        <img src="images/picture-contest-2017-small.jpg" /><br />
+                        Click here to submit your image!<br />
+                        Deadline to submit - April 7, 2017<br />
+                        $100 cash prize!
+                    </a>
+                </div>
+            </asp:PlaceHolder>
+
+            <asp:PlaceHolder runat="server" Visible="false">
+                <div style="padding: 20px; margin-bottom: 20px; border: solid 1px #aaa; border-radius: 4px; width: 350px; text-align: center; background-color: #f5f5f5;">
+                    <a href="PictureContestSurvey.aspx" target="_blank" style="font-size: 20px; font-weight: bold; line-height: 30px;">
+                        <img src="images/picture-contest-2017-voting-small.jpg" /><br />
+                        Click here to vote!<br />
+                        Deadline to vote - May 19, 2017<br />
+                        $100 cash prize!
+                    </a>
+                </div>
+            </asp:PlaceHolder>
+
 
             <%--<uc:Messenger runat="server" ID="Messenger1" />--%>
             <%--<uc:LoginRequirement runat="server" ID="LoginRequirement1" />--%>

@@ -22,6 +22,15 @@ namespace sselOnLine {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// litTestTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litTestTitle;
+        
+        /// <summary>
         /// panTestStart control.
         /// </summary>
         /// <remarks>
@@ -119,15 +128,6 @@ namespace sselOnLine {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMsg;
-        
-        /// <summary>
-        /// hlinkManual control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hlinkManual;
         
         /// <summary>
         /// panRecaptcha control.
@@ -238,6 +238,15 @@ namespace sselOnLine {
         protected global::System.Web.UI.WebControls.Panel panWrongAnswers;
         
         /// <summary>
+        /// litFailedMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litFailedMessage;
+        
+        /// <summary>
         /// hypStartOver2 control.
         /// </summary>
         /// <remarks>
@@ -265,6 +274,15 @@ namespace sselOnLine {
         protected global::System.Web.UI.WebControls.Panel panPassedMessage;
         
         /// <summary>
+        /// litTestResults control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litTestResults;
+        
+        /// <summary>
         /// litPassedMessage control.
         /// </summary>
         /// <remarks>
@@ -272,14 +290,5 @@ namespace sselOnLine {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal litPassedMessage;
-        
-        /// <summary>
-        /// litTestAdminEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litTestAdminEmail;
     }
 }

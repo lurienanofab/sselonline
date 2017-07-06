@@ -60,7 +60,7 @@
             <div class="middle">
                 <img alt="LNF" src="//ssel-apps.eecs.umich.edu/static/images/lnf-logo.png" />
                 <h2>
-                    <%=GetTestTitle()%>
+                    <asp:Literal runat="server" ID="litTestTitle"></asp:Literal>
                 </h2>
             </div>
             <hr />
@@ -111,10 +111,9 @@
                 </div>
                 <div style="margin-bottom: 20px;">
                     <asp:Label runat="server" ID="lblMsg" ForeColor="Red" Font-Bold="true"></asp:Label><br />
-                    This is an open book exam. You may refer to the
-                    <asp:HyperLink runat="server" ID="hlinkManual"> <%=GetTestTitle()%>Presentation for LNF</asp:HyperLink> while taking the quiz.<br />
-                    <strong>Attention:</strong> Each test page has a  <%=GetExamTime()%> minutes limit. If you do not submit your answers within <%=GetExamTime()%> minutes, the session will time out and your data will be lost.<br />
-                    If you are NOT planning to use the LNF, please email Sandrine Martin (<a href="mailto:sandrine@umich.edu">sandrine@umich.edu</a>) and let her know why you need the test.<br />
+                    <p>This is an open book exam. All of the materials you will need to complete the test are located on the <a href="http://lnf-wiki.eecs.umich.edu/wiki/User_Resources">LNF Wiki</a>.</p>
+                    <p><strong>Attention:</strong> Each test page has a <%=GetExamTime()%> minute limit. If you do not submit your answers within <%=GetExamTime()%> minutes, the session will time out and your data will be lost.</p>
+                    <p>If you are NOT planning to use the LNF, please email Sandrine Martin (<a href="mailto:sandrine@umich.edu">sandrine@umich.edu</a>) and let her know why you need the test.</p>
                 </div>
                 <div runat="server" id="panRecaptcha" class="captcha" style="width: 650px;">
                     <div style="margin-bottom: 10px;">
@@ -165,16 +164,16 @@
             </asp:Panel>
             <asp:Panel runat="server" ID="panWrongAnswers" Visible="false">
                 <div class="error">
-                    <h2>Sorry, you have not reached the minimum score for the <%=GetTestTitle()%>. Please review the manual and take the test again.</h2>
+                    <h2><asp:Literal runat="server" ID="litFailedMessage"></asp:Literal></h2>
                     <asp:HyperLink runat="server" ID="hypStartOver2">Click here to start over</asp:HyperLink>.
                 <asp:Literal runat="server" ID="litWrongAnswers"></asp:Literal>
                 </div>
             </asp:Panel>
             <asp:Panel runat="server" ID="panPassedMessage" Visible="false">
+                <asp:Literal runat="server" ID="litTestResults"></asp:Literal>
+                <br />
+                <br />
                 <asp:Literal runat="server" ID="litPassedMessage"></asp:Literal>
-                <br />
-                <br />
-                Thank you for taking the <%=GetTestTitle()%>. A confirmation email has been sent to you and the test administrator (<asp:Literal runat="server" ID="litTestAdminEmail"></asp:Literal>). You may now close this page.
             </asp:Panel>
         </form>
     </div>
