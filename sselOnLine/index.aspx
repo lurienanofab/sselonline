@@ -7,7 +7,7 @@
     <title>LNF Online Services</title>
     <link rel="stylesheet" href="styles/default.css?v=2" />
     <link rel="stylesheet" href="scripts/jquery.alerts/jquery.alerts.css?v=2" />
-    <link rel="stylesheet" href="<%=GetStaticUrl("styles/navigation.css?v=2")%>" />
+    <link rel="stylesheet" href="//ssel-apps.eecs.umich.edu/static/styles/navigation.css?v=2" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -25,9 +25,10 @@
         </div>
     </form>
 
-    <script src="<%=GetStaticUrl("lib/jquery/jquery.min.js")%>"></script>
-    <script src="<%=GetStaticUrl("lib/jclock/jquery.jclock.js")%>"></script>
-    <script src="<%=GetStaticUrl("scripts/jquery/jquery.menu.js")%>"></script>
+    <script src="//ssel-apps.eecs.umich.edu/static/lib/jquery/jquery.min.js"></script>
+    <script src="//ssel-apps.eecs.umich.edu/static/lib/moment/moment.min.js"></script>
+    <script src="//ssel-apps.eecs.umich.edu/data/scripts/jquery.servertime.js"></script>
+    <script src="//ssel-apps.eecs.umich.edu/static/scripts/jquery/jquery.menu.js"></script>
     <script src="scripts/jquery.alerts/jquery.alerts.js?v=2"></script>
 
     <script>
@@ -35,8 +36,7 @@
         $(".menu-root").menu();
 
         //starts the menu clock
-        var seed = new Date();
-        $('#jclock').jclock({ "format": "%I:%M:%S %P on %A, %B %d", "seedTime": seed.getTime() });
+        $('#jclock').servertime({ "format": "hh:mm:ss A on dddd, MMMM DD", "url": "//ssel-sched.eecs.umich.edu/time.aspx" });
 
         //resizes the iframe when the window resizes
         $(window).on("resize", function (e) {
