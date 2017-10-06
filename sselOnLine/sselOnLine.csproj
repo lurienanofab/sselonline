@@ -22,6 +22,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>46548e77</NuGetPackageImportStamp>
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,8 +44,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.5.1.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.5.1\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.5.5.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.5.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
@@ -159,8 +160,6 @@
     <Content Include="images\vgrabber.gif" />
     <Content Include="Login.aspx" />
     <Content Include="index.aspx" />
-    <Content Include="main.aspx" />
-    <Content Include="MainFrame.aspx" />
     <Content Include="PictureContestResults.aspx" />
     <Content Include="PictureContestSurvey.aspx" />
     <Content Include="PictureContest.aspx" />
@@ -304,20 +303,6 @@
     </Compile>
     <Compile Include="index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="main.aspx.cs">
-      <DependentUpon>main.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="main.aspx.designer.cs">
-      <DependentUpon>main.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="MainFrame.aspx.cs">
-      <DependentUpon>MainFrame.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="MainFrame.aspx.designer.cs">
-      <DependentUpon>MainFrame.aspx</DependentUpon>
     </Compile>
     <Compile Include="PictureContestResults.aspx.cs">
       <DependentUpon>PictureContestResults.aspx</DependentUpon>
