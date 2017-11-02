@@ -6,10 +6,11 @@ using LNF.Web.Content;
 using LNF.Web.Controls.Navigation;
 using System;
 using System.Text;
+using System.Linq;
 
 namespace sselOnLine
 {
-    public partial class index : LNFPage
+    public partial class Index : LNFPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,7 +23,7 @@ namespace sselOnLine
                 ValidPasswordCheck();
 
                 DropDownMenu1.LogoImageUrl = GetStaticUrl("images/lnfbanner.jpg");
-                DropDownMenu1.DataSource = SiteMenu.Create(CacheManager.Current.CurrentUser);
+                DropDownMenu1.DataSource = GetSiteMenu();
                 DropDownMenu1.DataBind();
 
                 StringBuilder sb = new StringBuilder();
@@ -33,8 +34,28 @@ namespace sselOnLine
                 ddmi.Enabled = false;
                 DropDownMenu1.Items.Add(ddmi);
 
+                // pass this info along to Loader.ashx
+                Session["Room"] = Request.QueryString["room"];
+
                 HandleViewUrl();
             }
+        }
+
+        private SiteMenu GetSiteMenu()
+        {
+            var siteMenu = SiteMenu.Create(CacheManager.Current.CurrentUser);
+            var logout = siteMenu.First(x => x.IsLogout);
+
+            if (!string.IsNullOrEmpty(Request.QueryString["timeout"]) && !string.IsNullOrEmpty(Request.QueryString["room"]))
+            {
+                if (int.TryParse(Request.QueryString["timeout"], out int timeout))
+                {
+                    string room = Request.QueryString["room"];
+                    logout.MenuURL += "?ReturnUrl=" + Server.UrlEncode(string.Format("/sselonline?timeout={0}&room={1}", timeout, room));
+                }
+            }
+
+            return siteMenu;
         }
 
         private void ValidPasswordCheck()

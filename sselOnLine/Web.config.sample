@@ -4,184 +4,185 @@
   http://go.microsoft.com/fwlink/?LinkId=169433
   -->
 <configuration>
-  <configSections>
-    <sectionGroup name="lnf">
-      <section name="providers" type="LNF.ProvidersSection, LNF" />
-      <section name="redis" type="LNF.Impl.Redis.RedisConfigurationSection, LNF.Impl" />
-    </sectionGroup>
-  </configSections>
+    <configSections>
+        <sectionGroup name="lnf">
+            <section name="providers" type="LNF.ProvidersSection, LNF" />
+            <section name="redis" type="LNF.Impl.Redis.RedisConfigurationSection, LNF.Impl" />
+        </sectionGroup>
+    </configSections>
 
-  <lnf>
-    <providers production="false">
-      <context type="LNF.Impl.WebContextProvider, LNF.Impl" loginUrl="/login" />
-      <dataAccess type="LNF.Impl.NHibernateWebDataAccess, LNF.Impl" />
-      <serialization type="LNF.Impl.Serialization.SerializationProvider, LNF.Impl" />
-      <encryption type="LNF.Impl.EncryptionProvider, LNF.Impl" />
-      <email type="LNF.Impl.Email.EmailProvider, LNF.Impl" host="127.0.0.1" log="true" />
-      <log type="LNF.Impl.Logging.ServiceLogProvider, LNF.Impl" name="sselOnLine" enabled="true" />
-      <modelFactory type="LNF.Impl.ModelFactory.ValueInjecterModelFactory, LNF.Impl" />
-    </providers>
-    <redis>
-      <connection host="cachesvr" databaseId="5" />
-    </redis>
-  </lnf>
+    <lnf>
+        <providers production="false">
+            <context type="LNF.Impl.WebContextProvider, LNF.Impl" loginUrl="/login" />
+            <dataAccess type="LNF.Impl.NHibernateWebDataAccess, LNF.Impl" />
+            <serialization type="LNF.Impl.Serialization.SerializationProvider, LNF.Impl" />
+            <encryption type="LNF.Impl.EncryptionProvider, LNF.Impl" />
+            <email type="LNF.Impl.Email.EmailProvider, LNF.Impl" host="127.0.0.1" log="true" />
+            <log type="LNF.Impl.Logging.ServiceLogProvider, LNF.Impl" name="sselOnLine" enabled="true" />
+            <modelFactory type="LNF.Impl.ModelFactory.ValueInjecterModelFactory, LNF.Impl" />
+        </providers>
+        <redis>
+            <connection host="cachesvr" databaseId="5" />
+        </redis>
+    </lnf>
 
-  <appSettings>
-    <add key="SecretKey" value="*****" />
-    <add key="StaticHost" value="//ssel-apps.eecs.umich.edu/static/" />
-    <add key="EmailHost" value="" />
-    <add key="TestingEmail" value="xxxxx" />
-    <add key="EmailSafetyTestAdmin" value="xxxxx" />
-    <add key="EmailUnsubscribe" value="xxxxx" />
-    <add key="SecurePath" value="c:\secure" />
-    <add key="ShowMetersOnLoginPage" value="No" />
-    <add key="ShowKioskLoginOptionIpList" value="xxxxx" />
-    <add key="LoginRequirementEmail" value="xxxxx" />
-    <add key="RolesUsingIOF2" value="Staff|Financial Admin" />
-    <add key="CaptchaPublicKey" value="xxxxx" />
-    <add key="CaptchaPrivateKey" value="xxxxx" />
-    <add key="DefaultDomain" value="xxxxx" />
-    <add key="AuthDomain" value="xxxxx" />
-    <add key="RequireSSL" value="false" />
-    <add key="AppServer" value="xxxxx" />
-    <add key="SchedServer" value="xxxxx" />
-    <add key="LoginUrl" value="https://lnf-dev.eecs.umich.edu/login" />
-    <add key="UseMobileSite" value="false" />
-    <add key="PictureContestName" value="image_contest_2017" />
-    <add key="PictureContestTitle" value="LNF Picture Contest 2017" />
-    <add key="PictureContestUploadDir" value="c:\secure\picture-contest" />
-    <add key="PictureContestAllowedFileTypes" value=".png,.gif,.jpg,.tif" />
-    <add key="PictureContestMaxUploads" value="1" />
-    <add key="PictureContestMaxDescriptionLength" value="250" />
-    <add key="PictureContestAllowVoting" value="false" />
-    <add key="MongoConnectionString" value="mongodb://xxxxx:xxxxx@localhost/" />
-    <add key="UserCommitteeMembers" value="xxxxx" />
-    <add key="OverrideIsOnKiosk" value="false" />
-    <add key="ValidationSettings:UnobtrusiveValidationMode" value="None" />
-    <add key="owin:AutomaticAppStartup" value="false" />
-  </appSettings>
+    <appSettings>
+        <add key="SecretKey" value="*****" />
+        <add key="StaticHost" value="//ssel-apps.eecs.umich.edu/static/" />
+        <add key="ScreensaverUrl" value="*****"/>
+        <add key="EmailHost" value="" />
+        <add key="TestingEmail" value="xxxxx" />
+        <add key="EmailSafetyTestAdmin" value="xxxxx" />
+        <add key="EmailUnsubscribe" value="xxxxx" />
+        <add key="SecurePath" value="c:\secure" />
+        <add key="ShowMetersOnLoginPage" value="No" />
+        <add key="ShowKioskLoginOptionIpList" value="xxxxx" />
+        <add key="LoginRequirementEmail" value="xxxxx" />
+        <add key="RolesUsingIOF2" value="Staff|Financial Admin" />
+        <add key="CaptchaPublicKey" value="xxxxx" />
+        <add key="CaptchaPrivateKey" value="xxxxx" />
+        <add key="DefaultDomain" value="xxxxx" />
+        <add key="AuthDomain" value="xxxxx" />
+        <add key="RequireSSL" value="false" />
+        <add key="AppServer" value="xxxxx" />
+        <add key="SchedServer" value="xxxxx" />
+        <add key="LoginUrl" value="https://lnf-dev.eecs.umich.edu/login" />
+        <add key="UseMobileSite" value="false" />
+        <add key="PictureContestName" value="image_contest_2017" />
+        <add key="PictureContestTitle" value="LNF Picture Contest 2017" />
+        <add key="PictureContestUploadDir" value="c:\secure\picture-contest" />
+        <add key="PictureContestAllowedFileTypes" value=".png,.gif,.jpg,.tif" />
+        <add key="PictureContestMaxUploads" value="1" />
+        <add key="PictureContestMaxDescriptionLength" value="250" />
+        <add key="PictureContestAllowVoting" value="false" />
+        <add key="MongoConnectionString" value="mongodb://xxxxx:xxxxx@localhost/" />
+        <add key="UserCommitteeMembers" value="xxxxx" />
+        <add key="OverrideIsOnKiosk" value="false" />
+        <add key="ValidationSettings:UnobtrusiveValidationMode" value="None" />
+        <add key="owin:AutomaticAppStartup" value="false" />
+    </appSettings>
 
-  <connectionStrings>
-    <add name="cnSselData" connectionString="Server=xxxxx;Database=xxxxx;User ID=xxxxx;Password=xxxxx" providerName="System.Data.SqlClient" />
-    <add name="cnSselScheduler" connectionString="Server=xxxxx;Database=xxxxx;User ID=xxxxx;Password=xxxxx" providerName="System.Data.SqlClient" />
-    <add name="cnProwatch" connectionString="Server=xxxxx;Database=xxxxx;User ID=xxxxx;Password=xxxxx" providerName="System.Data.SqlClient" />
-  </connectionStrings>
+    <connectionStrings>
+        <add name="cnSselData" connectionString="xxxxx" providerName="System.Data.SqlClient" />
+        <add name="cnSselScheduler" connectionString="xxxxx" providerName="System.Data.SqlClient" />
+        <add name="cnProwatch" connectionString="xxxxx" providerName="System.Data.SqlClient" />
+    </connectionStrings>
 
-  <system.web>
-    <compilation debug="true" targetFramework="4.6.1" />
-    <httpRuntime targetFramework="4.6.1" />
-
-    <pages controlRenderingCompatibilityVersion="4.0">
-      <controls>
-        <add tagPrefix="lnf" assembly="LNF.Web" namespace="LNF.Web.Controls.Navigation" />
-      </controls>
-    </pages>
-
-    <authentication mode="Forms">
-      <forms name="sselAuth.cookie" path="/" loginUrl="/login" timeout="480" protection="All" slidingExpiration="true" cookieless="UseCookies" domain="umich.edu" />
-    </authentication>
-
-    <authorization>
-      <deny users="?" />
-    </authorization>
-
-    <machineKey validationKey="xxxxx" decryptionKey="xxxxx" validation="SHA1" decryption="3DES" compatibilityMode="Framework20SP2" />
-
-    <customErrors mode="Off" />
-  </system.web>
-
-  <system.webServer>
-    <modules runAllManagedModulesForAllRequests="false">
-      <add name="LnfSessionModule" type="LNF.Impl.SessionModule" preCondition="managedHandler" />
-    </modules>
-
-    <handlers>
-      <remove name="UrlRoutingModule-4.0" />
-      <remove name="ExtensionlessUrl-ISAPI-4.0_32bit" />
-      <remove name="ExtensionlessUrl-ISAPI-4.0_64bit" />
-      <remove name="ExtensionlessUrl-Integrated-4.0" />
-    </handlers>
-
-    <defaultDocument enabled="true" />
-  </system.webServer>
-
-  <location path="Login.aspx">
     <system.web>
-      <authorization>
-        <allow users="*" />
-      </authorization>
-    </system.web>
-  </location>
+        <compilation debug="true" targetFramework="4.6.1" />
+        <httpRuntime targetFramework="4.6.1" />
 
-  <location path="Unsubscribe.aspx">
-    <system.web>
-      <authorization>
-        <allow users="*" />
-      </authorization>
-    </system.web>
-  </location>
+        <pages controlRenderingCompatibilityVersion="4.0">
+            <controls>
+                <add tagPrefix="lnf" assembly="LNF.Web" namespace="LNF.Web.Controls.Navigation" />
+            </controls>
+        </pages>
 
-  <location path="TestPage.aspx">
-    <system.web>
-      <authorization>
-        <allow users="*" />
-      </authorization>
-    </system.web>
-  </location>
+        <authentication mode="Forms">
+            <forms name="sselAuth.cookie" path="/" loginUrl="/login" timeout="480" protection="All" slidingExpiration="true" cookieless="UseCookies" domain="umich.edu" />
+        </authentication>
 
-  <location path="Test.aspx">
-    <system.web>
-      <authorization>
-        <allow users="*" />
-      </authorization>
-    </system.web>
-  </location>
+        <authorization>
+            <deny users="?" />
+        </authorization>
 
-  <location path="SafetyTest.aspx">
-    <system.web>
-      <authorization>
-        <allow users="*" />
-      </authorization>
-    </system.web>
-  </location>
+        <machineKey validationKey="xxxxx" decryptionKey="xxxxx" validation="SHA1" decryption="3DES" compatibilityMode="Framework20SP2" />
 
-  <location path="TestLNF.aspx">
-    <system.web>
-      <authorization>
-        <allow users="*" />
-      </authorization>
+        <customErrors mode="Off" />
     </system.web>
-  </location>
 
-  <location path="TestOSEH.aspx">
-    <system.web>
-      <authorization>
-        <allow users="*" />
-      </authorization>
-    </system.web>
-  </location>
+    <system.webServer>
+        <modules runAllManagedModulesForAllRequests="false">
+            <add name="LnfSessionModule" type="LNF.Impl.SessionModule" preCondition="managedHandler" />
+        </modules>
 
-  <location path="TestHF.aspx">
-    <system.web>
-      <authorization>
-        <allow users="*" />
-      </authorization>
-    </system.web>
-  </location>
+        <handlers>
+            <remove name="UrlRoutingModule-4.0" />
+            <remove name="ExtensionlessUrl-ISAPI-4.0_32bit" />
+            <remove name="ExtensionlessUrl-ISAPI-4.0_64bit" />
+            <remove name="ExtensionlessUrl-Integrated-4.0" />
+        </handlers>
 
-  <location path="images">
-    <system.web>
-      <authorization>
-        <allow users="*" />
-      </authorization>
-    </system.web>
-  </location>
+        <defaultDocument enabled="true" />
+    </system.webServer>
 
-  <location path="styles">
-    <system.web>
-      <authorization>
-        <allow users="*" />
-      </authorization>
-    </system.web>
-  </location>
+    <location path="Login.aspx">
+        <system.web>
+            <authorization>
+                <allow users="*" />
+            </authorization>
+        </system.web>
+    </location>
+
+    <location path="Unsubscribe.aspx">
+        <system.web>
+            <authorization>
+                <allow users="*" />
+            </authorization>
+        </system.web>
+    </location>
+
+    <location path="TestPage.aspx">
+        <system.web>
+            <authorization>
+                <allow users="*" />
+            </authorization>
+        </system.web>
+    </location>
+
+    <location path="Test.aspx">
+        <system.web>
+            <authorization>
+                <allow users="*" />
+            </authorization>
+        </system.web>
+    </location>
+
+    <location path="SafetyTest.aspx">
+        <system.web>
+            <authorization>
+                <allow users="*" />
+            </authorization>
+        </system.web>
+    </location>
+
+    <location path="TestLNF.aspx">
+        <system.web>
+            <authorization>
+                <allow users="*" />
+            </authorization>
+        </system.web>
+    </location>
+
+    <location path="TestOSEH.aspx">
+        <system.web>
+            <authorization>
+                <allow users="*" />
+            </authorization>
+        </system.web>
+    </location>
+
+    <location path="TestHF.aspx">
+        <system.web>
+            <authorization>
+                <allow users="*" />
+            </authorization>
+        </system.web>
+    </location>
+
+    <location path="images">
+        <system.web>
+            <authorization>
+                <allow users="*" />
+            </authorization>
+        </system.web>
+    </location>
+
+    <location path="styles">
+        <system.web>
+            <authorization>
+                <allow users="*" />
+            </authorization>
+        </system.web>
+    </location>
 </configuration>

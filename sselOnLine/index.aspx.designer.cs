@@ -10,7 +10,7 @@
 namespace sselOnLine {
     
     
-    public partial class index {
+    public partial class Index {
         
         /// <summary>
         /// form1 control.

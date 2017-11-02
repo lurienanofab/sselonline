@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="sselOnLine.index" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="sselOnLine.Index" %>
 
 <!DOCTYPE html>
 
@@ -8,6 +8,25 @@
     <link rel="stylesheet" href="styles/default.css?v=2" />
     <link rel="stylesheet" href="scripts/jquery.alerts/jquery.alerts.css?v=2" />
     <link rel="stylesheet" href="//ssel-apps.eecs.umich.edu/static/styles/navigation.css?v=2" />
+
+    <script src="//ssel-apps.eecs.umich.edu/static/scripts/idle-timeout.js"></script>
+    <script>
+        var url = '<%=string.Format(ConfigurationManager.AppSettings["ScreensaverUrl"], Request.QueryString["timeout"], Request.QueryString["room"])%>';
+        var idleTimeout = new IdleTimeout(url);
+
+        function frameLoad(f) {
+            // go to screensaver if there is no activity for awhile (only enabled when timeout parameter is in querystring)
+            var fdoc = f.contentDocument || f.contentWindow.document;
+            idleTimeout.watch(fdoc, "FRAME");
+
+            // this will resize the frame every time the iframe loads
+            var event = document.createEvent("HTMLEvents");
+            event.initEvent("resize", true, false);
+            window.dispatchEvent(event);
+        }
+
+        idleTimeout.watch(window, "PARENT");
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -20,7 +39,7 @@
             </div>
             <div class="site-content">
                 <input type="hidden" class="view-url" id="hidViewUrl" runat="server" />
-                <iframe id="content" name="content" src="Loader.ashx" style="width: 100%; border: none;"></iframe>
+                <iframe id="content" name="content" src="Loader.ashx" onload="frameLoad(this);" style="width: 100%; border: none;"></iframe>
             </div>
         </div>
     </form>
@@ -42,6 +61,7 @@
         $(window).on("resize", function (e) {
             var headerHeight = $(".site-header").outerHeight();
             $(".site-content").css("top", headerHeight + "px");
+            console.log('window resized');
         }).trigger("resize");
 
         //display any alerts
@@ -53,11 +73,6 @@
                     $(window).trigger("resize");
                 });
             }
-        });
-
-        //this will resize the frame every time the iframe loads
-        $("#content").on("load", function (e) {
-            $(window).trigger("resize");
         });
 
         viewNav();
