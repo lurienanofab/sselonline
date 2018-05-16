@@ -66,10 +66,10 @@
     <link rel="stylesheet" href="styles/survey.css" />
     <link rel="stylesheet" href="scripts/jquery.alerts/jquery.alerts.css" />
     <%--<link rel="stylesheet" href="scripts/jquery.messenger/jquery.messenger.css" />--%>
-    <link rel="stylesheet" href="<%=GetStaticUrl("styles/master.css")%>" />
-    <link rel="stylesheet" href="<%=GetStaticUrl("lib/jquery-ui/themes/smoothness/jquery-ui.min.css") %>" />
+    <link rel="stylesheet" href="//ssel-apps.eecs.umich.edu/static/styles/master.css" />
+    <link rel="stylesheet" href="//ssel-apps.eecs.umich.edu/static/lib/jquery-ui/themes/smoothness/jquery-ui.min.css" />
 
-    <script src="<%=GetStaticUrl("lib/jquery/jquery.min.js")%>"></script>
+    <script src="//ssel-apps.eecs.umich.edu/static/lib/jquery/jquery.min.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -139,9 +139,9 @@
         </asp:PlaceHolder>
     </form>
 
-    <script src="<%=GetStaticUrl("lib/jquery/jquery.min.js")%>"></script>
-    <script src="<%=GetStaticUrl("lib/jquery-ui/jquery-ui.min.js")%>"></script>
-    <script src="<%=GetStaticUrl("lib/watermark/ui.watermark.js")%>"></script>
+    <script src="//ssel-apps.eecs.umich.edu/static/lib/jquery/jquery.min.js"></script>
+    <script src="//ssel-apps.eecs.umich.edu/static/lib/jquery-ui/jquery-ui.min.js"></script>
+    <script src="//ssel-apps.eecs.umich.edu/static/lib/watermark/ui.watermark.js"></script>
     <script src="scripts/jquery.alerts/jquery.alerts.js"></script>
     <%--<script src="scripts/jquery.messenger/jquery.messenger.js"></script>--%>
     <script src="scripts/main.js"></script>

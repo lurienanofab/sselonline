@@ -31,24 +31,6 @@ namespace sselOnLine {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidPasswordRedirect;
         
         /// <summary>
-        /// hidSeedTime control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidSeedTime;
-        
-        /// <summary>
-        /// DropDownMenu1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::LNF.Web.Controls.Navigation.DropDownMenu DropDownMenu1;
-        
-        /// <summary>
         /// hidViewUrl control.
         /// </summary>
         /// <remarks>
@@ -56,5 +38,14 @@ namespace sselOnLine {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden hidViewUrl;
+        
+        /// <summary>
+        /// SiteMenu1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::LNF.Web.Controls.Navigation.SiteMenu SiteMenu1;
     }
 }

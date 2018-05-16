@@ -224,7 +224,7 @@ namespace sselOnLine.AppCode
 
         public string LName { get; set; }
 
-        public string DisplayName { get { return ClientModel.GetDisplayName(LName, FName); } }
+        public string DisplayName { get { return ClientItem.GetDisplayName(LName, FName); } }
 
         public static ContestUser Create(int clientId)
         {

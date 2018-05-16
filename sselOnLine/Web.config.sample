@@ -27,18 +27,18 @@
     </lnf>
 
     <appSettings>
-        <add key="SecretKey" value="*****" />
-        <add key="StaticHost" value="//ssel-apps.eecs.umich.edu/static/" />
-        <add key="ScreensaverUrl" value="*****"/>
-        <add key="EmailHost" value="" />
+        <add key="SecretKey" value="xxxxx" />
+        <add key="StaticHost" value="xxxxx" />
+        <add key="ScreensaverUrl" value="xxxxx"/>
+        <add key="EmailHost" value="xxxxx" />
         <add key="TestingEmail" value="xxxxx" />
         <add key="EmailSafetyTestAdmin" value="xxxxx" />
         <add key="EmailUnsubscribe" value="xxxxx" />
-        <add key="SecurePath" value="c:\secure" />
+        <add key="SecurePath" value="xxxxx" />
         <add key="ShowMetersOnLoginPage" value="No" />
         <add key="ShowKioskLoginOptionIpList" value="xxxxx" />
         <add key="LoginRequirementEmail" value="xxxxx" />
-        <add key="RolesUsingIOF2" value="Staff|Financial Admin" />
+        <add key="RolesUsingIOF2" value="Staff|FinancialAdmin" />
         <add key="CaptchaPublicKey" value="xxxxx" />
         <add key="CaptchaPrivateKey" value="xxxxx" />
         <add key="DefaultDomain" value="xxxxx" />
@@ -46,16 +46,16 @@
         <add key="RequireSSL" value="false" />
         <add key="AppServer" value="xxxxx" />
         <add key="SchedServer" value="xxxxx" />
-        <add key="LoginUrl" value="https://lnf-dev.eecs.umich.edu/login" />
+        <add key="LoginUrl" value="xxxxx" />
         <add key="UseMobileSite" value="false" />
-        <add key="PictureContestName" value="image_contest_2017" />
-        <add key="PictureContestTitle" value="LNF Picture Contest 2017" />
-        <add key="PictureContestUploadDir" value="c:\secure\picture-contest" />
-        <add key="PictureContestAllowedFileTypes" value=".png,.gif,.jpg,.tif" />
-        <add key="PictureContestMaxUploads" value="1" />
-        <add key="PictureContestMaxDescriptionLength" value="250" />
-        <add key="PictureContestAllowVoting" value="false" />
-        <add key="MongoConnectionString" value="mongodb://xxxxx:xxxxx@localhost/" />
+        <add key="PictureContestName" value="xxxxx" />
+        <add key="PictureContestTitle" value="xxxxx" />
+        <add key="PictureContestUploadDir" value="xxxxx" />
+        <add key="PictureContestAllowedFileTypes" value="xxxxx" />
+        <add key="PictureContestMaxUploads" value="xxxxx" />
+        <add key="PictureContestMaxDescriptionLength" value="xxxxx" />
+        <add key="PictureContestAllowVoting" value="xxxxx" />
+        <add key="MongoConnectionString" value="xxxxx" />
         <add key="UserCommitteeMembers" value="xxxxx" />
         <add key="OverrideIsOnKiosk" value="false" />
         <add key="ValidationSettings:UnobtrusiveValidationMode" value="None" />

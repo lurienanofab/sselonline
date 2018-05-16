@@ -1,12 +1,8 @@
-﻿using LNF;
-using LNF.Cache;
+﻿using LNF.Cache;
 using LNF.CommonTools;
 using LNF.Repository;
 using LNF.Web.Content;
-using LNF.Web.Controls.Navigation;
 using System;
-using System.Text;
-using System.Linq;
 
 namespace sselOnLine
 {
@@ -14,25 +10,25 @@ namespace sselOnLine
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            hidSeedTime.Value = DateTime.Now.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ssK");
-
             CacheManager.Current.CheckSession();
 
             if (!Page.IsPostBack)
             {
+                Session.Remove("SiteMenu");
+
                 ValidPasswordCheck();
 
-                DropDownMenu1.LogoImageUrl = GetStaticUrl("images/lnfbanner.jpg");
-                DropDownMenu1.DataSource = GetSiteMenu();
-                DropDownMenu1.DataBind();
+                //DropDownMenu1.LogoImageUrl = "/static/images/lnfbanner.jpg";
+                //DropDownMenu1.DataSource = GetSiteMenu();
+                //DropDownMenu1.DataBind();
 
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine("<div>Current User: " + CacheManager.Current.CurrentUser.DisplayName + "</div>");
-                sb.AppendLine(@"<div id=""jclock""></div>");
-                DropDownMenuItem ddmi = new DropDownMenuItem(sb.ToString());
-                ddmi.CssClass = "menu-clock";
-                ddmi.Enabled = false;
-                DropDownMenu1.Items.Add(ddmi);
+                //StringBuilder sb = new StringBuilder();
+                //sb.AppendLine("<div>Current User: " + CacheManager.Current.CurrentUser.DisplayName + "</div>");
+                //sb.AppendLine(@"<div id=""jclock""></div>");
+                //DropDownMenuItem ddmi = new DropDownMenuItem(sb.ToString());
+                //ddmi.CssClass = "menu-clock";
+                //ddmi.Enabled = false;
+                //DropDownMenu1.Items.Add(ddmi);
 
                 // pass this info along to Loader.ashx
                 Session["Room"] = Request.QueryString["room"];
@@ -41,22 +37,22 @@ namespace sselOnLine
             }
         }
 
-        private SiteMenu GetSiteMenu()
-        {
-            var siteMenu = SiteMenu.Create(CacheManager.Current.CurrentUser);
-            var logout = siteMenu.First(x => x.IsLogout);
+        //private LNF.SiteMenu GetSiteMenu()
+        //{
+        //    var siteMenu = new LNF.SiteMenu(CacheManager.Current.CurrentUser);
+        //    var logout = siteMenu.First(x => x.IsLogout);
 
-            if (!string.IsNullOrEmpty(Request.QueryString["timeout"]) && !string.IsNullOrEmpty(Request.QueryString["room"]))
-            {
-                if (int.TryParse(Request.QueryString["timeout"], out int timeout))
-                {
-                    string room = Request.QueryString["room"];
-                    logout.MenuURL += "?ReturnUrl=" + Server.UrlEncode(string.Format("/sselonline?timeout={0}&room={1}", timeout, room));
-                }
-            }
+        //    if (!string.IsNullOrEmpty(Request.QueryString["timeout"]) && !string.IsNullOrEmpty(Request.QueryString["room"]))
+        //    {
+        //        if (int.TryParse(Request.QueryString["timeout"], out int timeout))
+        //        {
+        //            string room = Request.QueryString["room"];
+        //            logout.MenuURL += "?ReturnUrl=" + Server.UrlEncode(string.Format("/sselonline?timeout={0}&room={1}", timeout, room));
+        //        }
+        //    }
 
-            return siteMenu;
-        }
+        //    return siteMenu;
+        //}
 
         private void ValidPasswordCheck()
         {

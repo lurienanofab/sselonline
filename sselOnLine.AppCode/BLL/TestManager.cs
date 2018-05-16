@@ -137,7 +137,7 @@ namespace sselOnLine.AppCode.BLL
                         result.Answer = reader["Answer"].ToString();
                         result.TestID = Convert.ToInt32(reader["TestID"]);
                         result.UserTestID = userTestId;
-                        result.ClientID = RepositoryUtility.ConvertTo(reader["ClientID"], 0);
+                        result.ClientID = Utility.ConvertTo(reader["ClientID"], 0);
                         result.IP = IPAddress.Parse(reader["ClientIP"].ToString());
                         result.ClientData = new UserTest.Client(result.ClientID);
                     }

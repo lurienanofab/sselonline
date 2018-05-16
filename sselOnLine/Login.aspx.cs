@@ -121,7 +121,7 @@ namespace sselOnLine
             //2011-05-13 now the universal password code is handled in ClientDB.Login
             string debug = string.Empty;
 
-            Client c = null;
+            ClientItem c = null;
             if (result.IsLoggedIn)
             {
                 debug += "result.IsLoggedIn = true";
@@ -136,7 +136,7 @@ namespace sselOnLine
             //client will be "empty" if login fails
             if (c != null)
             {
-                if (!c.Active)
+                if (!c.ClientActive)
                 {
                     //litLoginErrorMessage.Text = @"<div style=""font-weight: bold; font-size: 16pt; color: #FF0000; padding-top: 40px; padding-bottom: 40px;"">Your account is inactive.</div>";
                     panLoginError.Visible = true;
@@ -157,7 +157,7 @@ namespace sselOnLine
                 Session["UserName"] = c.UserName;
                 Session["DisplayName"] = c.DisplayName;
                 Session["ClientID"] = c.ClientID;
-                Session["Email"] = c.PrimaryEmail();
+                Session["Email"] = c.Email;
                 Session["IsKiosk"] = isKiosk;
 
                 EventLogger.WriteToSystemLog(c.ClientID, Guid.NewGuid(), EventLogger.LogMessageTypes.Info, string.Format("User {0} has logged in.", c.UserName));

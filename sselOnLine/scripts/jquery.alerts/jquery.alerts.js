@@ -14,20 +14,20 @@
 				var promise = $.ajax({
 				    "url": opt.url + '?ts=' + (new Date()).valueOf(),
 					"dataType": "json",
-					"success": function (data, textStatus, jqXHR) {
+                    "success": function (data, textStatus, jqXHR) {
 						$.each(data, function(index, item){
 						    item = $.extend({ "location": "default", "type": "info" }, item);
 							var sdate = new Date(item.startDate);
 							var edate = new Date(item.endDate);
-							var now = new Date();
-							if (item.location == opt.location && now >= sdate && now < edate) {
+                            var now = new Date();
+                            if (item.location == opt.location && now >= sdate && now < edate) {
 								var div = $("<div/>").addClass("alerts-item " + item.location + " " + item.type)
 									.html(item.text)
 									.appendTo($this);
 									
 								if (item.style)
 									div.css(item.style);
-							}
+                            }
 						});
 
 						def.resolve(data);
