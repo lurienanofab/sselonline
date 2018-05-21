@@ -358,7 +358,7 @@ namespace sselOnLine.AppCode.BLL
 
         public static void SendEmail(string adminToAddr, string subj, string body)
         {
-            Providers.Email.SendMessage(
+            ServiceProvider.Current.Email.SendMessage(
                 CacheManager.Current.ClientID,
                 "seslOnLine.AppCode.BLL.TestManager.SendEmail(string adminToAddr, string subj, string body)",
                 subj + " [Admin Notice]",
@@ -370,7 +370,7 @@ namespace sselOnLine.AppCode.BLL
 
         public static void SendEmail(string adminToAddr, string userToAddr, string subject, string body)
         {
-            Providers.Email.SendMessage(
+            ServiceProvider.Current.Email.SendMessage(
                 CacheManager.Current.ClientID,
                 "seslOnLine.AppCode.BLL.TestManager.SendEmail(string adminToAddr, string userToAddr, string subject, string body)",
                 subject,

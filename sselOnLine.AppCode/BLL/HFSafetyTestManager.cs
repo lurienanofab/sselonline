@@ -83,7 +83,7 @@ namespace sselOnLine.AppCode.BLL
                 }
             }
             
-            string testerName = Providers.Context.Current.GetSessionValue("DisplayName").ToString();
+            string testerName = ServiceProvider.Current.Context.GetSessionValue("DisplayName").ToString();
             string subj = "HF Safety Test result by " + testerName;
 
             StringBuilder body = new StringBuilder();
@@ -109,7 +109,7 @@ namespace sselOnLine.AppCode.BLL
 
             //Send out email to tester and LNF User Services manager
             string adminEmail = ConfigurationManager.AppSettings["EmailSafetyTestAdmin"];
-            string userEmail = Providers.Context.Current.GetSessionValue("Email").ToString();
+            string userEmail = ServiceProvider.Current.Context.GetSessionValue("Email").ToString();
             try
             {
                 TestManager.SendEmail(adminEmail, userEmail, subj, body.ToString());

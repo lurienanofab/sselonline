@@ -3,7 +3,7 @@ using LNF.CommonTools;
 using LNF.Data;
 using LNF.Hooks;
 using LNF.Models.Data;
-using LNF.Repository.Data;
+using LNF.Repository;
 using LNF.Scheduler;
 using LNF.Web.Content;
 using sselOnLine.AppCode;
@@ -37,7 +37,7 @@ namespace sselOnLine
                     Response.Redirect(string.Format("https://{0}{1}", Request.Url.Host, Request.Url.PathAndQuery));
             }
 
-            phGoogleAnalytics.Visible = Providers.IsProduction();
+            phGoogleAnalytics.Visible = ServiceProvider.Current.IsProduction();
 
             if (!Page.IsPostBack)
             {
@@ -48,7 +48,7 @@ namespace sselOnLine
 
                 diwater_meter.Visible = ConfigurationManager.AppSettings["ShowMetersOnLoginPage"] == "Yes";
                 AjaxDataSource1.Enabled = ConfigurationManager.AppSettings["ShowMetersOnLoginPage"] == "Yes";
-                chkKiosk.Visible = !Providers.IsProduction();
+                chkKiosk.Visible = !ServiceProvider.Current.IsProduction();
                 if (!chkKiosk.Visible)
                     chkKiosk.Visible = ConfigurationManager.AppSettings["ShowKioskLoginOptionIpList"].Contains(Request.UserHostAddress);
 
@@ -129,7 +129,7 @@ namespace sselOnLine
             }
             else
             {
-                c = ClientUtility.Login(context.Username, context.Password);
+                c = DA.Use<IClientManager>().Login(context.Username, context.Password);
                 debug += "result.IsLoggedIn = false, c " + (c == null ? "is null" : "is not null, username = " + context.Username + ", password = " + context.Password);
             }
 

@@ -16,7 +16,7 @@ namespace sselOnLine
         {
             string host = HttpContext.Current.Request.Url.Host;
 
-            if (Providers.IsProduction())
+            if (ServiceProvider.Current.IsProduction())
             {
                 if (!host.EndsWith(SiteSecurity.DefaultDomain))
                     host += "." + SiteSecurity.DefaultDomain;
@@ -35,7 +35,7 @@ namespace sselOnLine
 
         void Session_Start(object sender, EventArgs e)
         {
-            if (Providers.IsProduction())
+            if (ServiceProvider.Current.IsProduction())
             {
                 if (!Request.Url.Host.EndsWith(SiteSecurity.DefaultDomain))
                 {

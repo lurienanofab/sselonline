@@ -24,7 +24,7 @@ namespace sselOnLine
 
             phStaging.Visible = CacheManager.Current.CurrentUser.HasPriv(ClientPrivilege.Staff | ClientPrivilege.Administrator | ClientPrivilege.Developer);
 
-            phGoogleAnalytics.Visible = Providers.IsProduction();
+            phGoogleAnalytics.Visible = ServiceProvider.Current.IsProduction();
 
             SetupLoginRequirement();
 

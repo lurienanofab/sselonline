@@ -12,7 +12,7 @@ namespace sselOnLine.AppCode
     {
         protected override void OnLoad(EventArgs e)
         {
-            if (!Page.IsPostBack && !Providers.IsProduction())
+            if (!Page.IsPostBack && !ServiceProvider.Current.IsProduction())
                 SetCorrectAnswers();
 
             base.OnLoad(e);

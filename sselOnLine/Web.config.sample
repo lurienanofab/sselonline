@@ -4,27 +4,21 @@
   http://go.microsoft.com/fwlink/?LinkId=169433
   -->
 <configuration>
-    <configSections>
-        <sectionGroup name="lnf">
-            <section name="providers" type="LNF.ProvidersSection, LNF" />
-            <section name="redis" type="LNF.Impl.Redis.RedisConfigurationSection, LNF.Impl" />
-        </sectionGroup>
-    </configSections>
+  <configSections>
+    <sectionGroup name="lnf">
+      <section name="provider" type="LNF.ServiceProviderSection, LNF" />
+    </sectionGroup>
+  </configSections>
 
-    <lnf>
-        <providers production="false">
-            <context type="LNF.Impl.WebContextProvider, LNF.Impl" loginUrl="/login" />
-            <dataAccess type="LNF.Impl.NHibernateWebDataAccess, LNF.Impl" />
-            <serialization type="LNF.Impl.Serialization.SerializationProvider, LNF.Impl" />
-            <encryption type="LNF.Impl.EncryptionProvider, LNF.Impl" />
-            <email type="LNF.Impl.Email.EmailProvider, LNF.Impl" host="127.0.0.1" log="true" />
-            <log type="LNF.Impl.Logging.ServiceLogProvider, LNF.Impl" name="sselOnLine" enabled="true" />
-            <modelFactory type="LNF.Impl.ModelFactory.ValueInjecterModelFactory, LNF.Impl" />
-        </providers>
-        <redis>
-            <connection host="cachesvr" databaseId="5" />
-        </redis>
-    </lnf>
+  <lnf>
+    <provider production="false">
+      <context loginUrl="/login" />
+      <dataAccess showSql="true" />
+      <email host="127.0.0.1" log="true" />
+      <control host="xxxxx" />
+      <log name="sselOnLine" enabled="true" />
+    </provider>
+  </lnf>
 
     <appSettings>
         <add key="SecretKey" value="xxxxx" />

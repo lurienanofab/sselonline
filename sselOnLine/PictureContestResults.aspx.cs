@@ -28,8 +28,7 @@ namespace sselOnLine
             {
                 if (Request.QueryString["command"] == "Delete")
                 {
-                    Guid imageId;
-                    if (Guid.TryParse(Request.QueryString["id"], out imageId))
+                    if (Guid.TryParse(Request.QueryString["id"], out Guid imageId))
                     {
                         ContestImage cimg = _contest.GetImage(imageId);
                         if (cimg != null)
@@ -75,7 +74,7 @@ namespace sselOnLine
                 ImageID = image.ImageID,
                 VoteCount = GetVoteCount(image),
                 Description = image.Description,
-                SubmittedBy = string.Format("{0} ({1})", c.DisplayName, c.PrimaryEmail())
+                SubmittedBy = string.Format("{0} ({1})", c.DisplayName, DA.Use<IClientManager>().PrimaryEmail(c))
             };
         }
 

@@ -46,7 +46,7 @@ namespace sselOnLine
 
             try
             {
-                Providers.Email.SendMessage(0, "sselOnLine.Unsubscribe.btnSubmit_Click(object sender, EventArgs e)", "LNF User List unsubscribe request from " + user.DisplayName, bodytext, "system@lnf.umich.edu", new string[] { ConfigurationManager.AppSettings["EmailUnsubscribe"] });
+                ServiceProvider.Current.Email.SendMessage(0, "sselOnLine.Unsubscribe.btnSubmit_Click(object sender, EventArgs e)", "LNF User List unsubscribe request from " + user.DisplayName, bodytext, "system@lnf.umich.edu", new string[] { ConfigurationManager.AppSettings["EmailUnsubscribe"] });
                 lblMsg.Text = "Your request to unsubscribe has been sent to the administrator. It might take several days for the change to take effect.";
             }
             catch (Exception ex)
