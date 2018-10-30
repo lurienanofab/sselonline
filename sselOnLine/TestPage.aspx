@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="TestPage.aspx.cs" Inherits="sselOnLine.TestPage" Async="true" %>
 
-<!--%@ Register TagPrefix="recaptcha" Namespace="Recaptcha" Assembly="Recaptcha" %-->
 <%@ Register TagPrefix="lnf" Namespace="LNF.Web.Controls.Tools" Assembly="LNF.Web" %>
 
 <!DOCTYPE html>
@@ -125,10 +124,10 @@
                     </div>
                 </div>
                 <div style="padding-top: 20px;">
-                    <asp:Button runat="server" ID="btnStart" Text="Start the Test" OnClick="btnStart_Click" />
+                    <asp:Button runat="server" ID="btnStart" Text="Start the Test" OnClick="BtnStart_Click" />
                 </div>
                 <div id="email_test" style="padding-top: 20px; display: none;">
-                    <asp:Button runat="server" ID="btnSendTestEmail" Text="Send Test Email" OnClick="btnSendTestEmail_Click" />
+                    <asp:Button runat="server" ID="btnSendTestEmail" Text="Send Test Email" OnClick="BtnSendTestEmail_Click" />
                     <asp:Literal runat="server" ID="litSendTestEmailMessage"></asp:Literal>
                 </div>
             </asp:Panel>
@@ -136,7 +135,7 @@
                 <div class="test-warning" style="margin-bottom: 20px; color: Red;">
                     Please note: You must finish this test in <%=GetExamTime()%> minutes. If you use the arrow keys while taking the test, it will change your selected answers
                 </div>
-                <asp:Repeater runat="server" ID="rptQuestions" OnItemDataBound="rptQuestions_ItemDataBound">
+                <asp:Repeater runat="server" ID="rptQuestions" OnItemDataBound="RptQuestions_ItemDataBound">
                     <HeaderTemplate>
                         <ol class="test-list" start="<%#GetQuestionStartNumber()%>">
                     </HeaderTemplate>
@@ -153,7 +152,7 @@
                     </FooterTemplate>
                 </asp:Repeater>
                 <div style="margin: 10px;">
-                    <asp:Button ID="btnNext" runat="server" Text="Submit" OnClick="btnNext_Click" />
+                    <asp:Button ID="btnNext" runat="server" Text="Submit" OnClick="BtnNext_Click" />
                 </div>
             </asp:Panel>
             <asp:Panel runat="server" ID="panTimeLimit" Visible="false">
@@ -164,7 +163,8 @@
             </asp:Panel>
             <asp:Panel runat="server" ID="panWrongAnswers" Visible="false">
                 <div class="error">
-                    <h2><asp:Literal runat="server" ID="litFailedMessage"></asp:Literal></h2>
+                    <h2>
+                        <asp:Literal runat="server" ID="litFailedMessage"></asp:Literal></h2>
                     <asp:HyperLink runat="server" ID="hypStartOver2">Click here to start over</asp:HyperLink>.
                 <asp:Literal runat="server" ID="litWrongAnswers"></asp:Literal>
                 </div>
@@ -178,7 +178,7 @@
         </form>
     </div>
 
-    <script src="<%=GetStaticUrl("lib/jquery/jquery.min.js")%>"></script>
+    <script src="//ssel-apps.eecs.umich.edu/static/lib/jquery/jquery.min.js"></script>
     <script src="scripts/main.js"></script>
 </body>
 </html>

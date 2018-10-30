@@ -1,8 +1,6 @@
 ﻿using LNF;
-using LNF.CommonTools;
 using LNF.Repository;
 using System.Configuration;
-using System.Data;
 using System.Text;
 
 namespace sselOnLine.AppCode.BLL
@@ -11,37 +9,33 @@ namespace sselOnLine.AppCode.BLL
     {
         public static bool InsertNewAnswer(int clientId, string answer)
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
-            {
-                dba.AddParameter("@Action", "HFSafetyTest");
-                dba.AddParameter("@ClientID", clientId);
-                dba.AddParameter("@Answer", answer);
-                dba.ExecuteNonQuery("SafetyTestUser_Insert");
-                return true;
-            }
+            DA.Command()
+                .Param("Action", "HFSafetyTest")
+                .Param("ClientID", clientId)
+                .Param("Answer", answer)
+                .ExecuteNonQuery("dbo.SafetyTestUser_Insert");
+
+            return true;
         }
 
         private static string GetUserAnswer(int clientId)
         {
+            string result = string.Empty;
 
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
+            try
             {
-                dba.AddParameter("@Action", "GetAnswerForHFSafety");
-                dba.AddParameter("@ClientID", clientId);
-                string result = string.Empty;
-                try
+                using (var reader = DA.Command().Param(new { Action = "GetAnswerForHFSafety", ClientID = clientId }).ExecuteReader("dbo.SafetyTestUser_Select"))
                 {
-                    IDataReader reader = dba.ExecuteReader("SafetyTestUser_Select");
                     if (reader.Read())
                         result = reader[0].ToString();
                 }
-                catch
-                {
-                    result = "Error";
-                }
-
-                return result;
             }
+            catch
+            {
+                result = "Error";
+            }
+
+            return result;
         }
 
         public static bool GradeTest(int clientId)
@@ -51,23 +45,22 @@ namespace sselOnLine.AppCode.BLL
 
             //Get correct answer from db
             string correctAnswer = string.Empty;
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
+
+            try
             {
-                dba.AddParameter("@TestID", TestManager.TestType.Safety);
-                try
+                using (var reader = DA.Command().Param("TestID", TestManager.TestType.Safety).ExecuteReader("dbo.SafetyTestAnswers_Select"))
                 {
-                    IDataReader reader = dba.ExecuteReader("SafetyTestAnswers_Select");
                     if (reader.Read())
                     {
                         //the third column has the answers
                         correctAnswer = reader[3].ToString();
                     }
                 }
-                catch
-                {
-                    correctAnswer = "Error";
-                    return false;
-                }
+            }
+            catch
+            {
+                correctAnswer = "Error";
+                return false;
             }
 
             string wrongAnswers = string.Empty;    //keep a record of all questions that have wrong answers
@@ -82,7 +75,7 @@ namespace sselOnLine.AppCode.BLL
                     wrongAnswers += "Q" + (index + 1).ToString() + ": " + userAnswerSplitter[index] + "<br />";
                 }
             }
-            
+
             string testerName = ServiceProvider.Current.Context.GetSessionValue("DisplayName").ToString();
             string subj = "HF Safety Test result by " + testerName;
 
@@ -110,6 +103,7 @@ namespace sselOnLine.AppCode.BLL
             //Send out email to tester and LNF User Services manager
             string adminEmail = ConfigurationManager.AppSettings["EmailSafetyTestAdmin"];
             string userEmail = ServiceProvider.Current.Context.GetSessionValue("Email").ToString();
+
             try
             {
                 TestManager.SendEmail(adminEmail, userEmail, subj, body.ToString());
@@ -123,12 +117,10 @@ namespace sselOnLine.AppCode.BLL
 
         private static void MarkTestPass(int clientId)
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
-            {
-                dba.AddParameter("@Action", "HFSafetyTestPass");
-                dba.AddParameter("@ClientID", clientId);
-                dba.ExecuteNonQuery("SafetyTestUser_Insert");
-            }
+            DA.Command()
+                .Param("Action", "HFSafetyTestPass")
+                .Param("ClientID", clientId)
+                .ExecuteNonQuery("dbo.SafetyTestUser_Insert");
         }
     }
 }

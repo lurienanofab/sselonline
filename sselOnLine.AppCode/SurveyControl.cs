@@ -1,8 +1,7 @@
-﻿using LNF.Cache;
-using LNF.CommonTools;
-using LNF.Data;
+﻿using LNF.Data;
 using LNF.Models.Data;
 using LNF.Repository;
+using LNF.Web;
 using System;
 using System.Data;
 using System.Web.UI;
@@ -34,27 +33,26 @@ namespace sselOnLine.AppCode
             if (CutoffClientID == 0)
                 result = false;
             else
-                result = CacheManager.Current.CurrentUser.ClientID > CutoffClientID;
+                result = Context.CurrentUser().ClientID > CutoffClientID;
 
             if (!result)
             {
                 if (Privs == 0)
                     result = false;
                 else
-                    result = !CacheManager.Current.CurrentUser.HasPriv(PrivUtility.CalculatePriv(Privs));
+                    result = !Context.CurrentUser().HasPriv(PrivUtility.CalculatePriv(Privs));
             }
 
             if (result) return true;
 
             string sql = "SELECT * FROM Survey WHERE ClientID = @ClientID AND SurveyType = @SurveyType";
 
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
-            using (IDataReader reader = dba.CommandTypeText().ApplyParameters(new { ClientID = GetClientID(), SurveyType = SurveyType }).ExecuteReader(sql))
+            using (var reader = DA.Command(CommandType.Text).Param(new { Context.CurrentUser().ClientID, SurveyType }).ExecuteReader(sql))
             {
                 if (reader.Read())
                 {
                     string status = reader["Status"].ToString();
-                    if (status.Trim().Equals(SurveyControl.DONE))
+                    if (status.Trim().Equals(DONE))
                     {
                         reader.Close();
                         return true;
@@ -67,22 +65,15 @@ namespace sselOnLine.AppCode
 
         public int NewUserCompleted()
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
-            {
-                string sql = "INSERT INTO Survey(ClientID, Status, Time, Data, SurveyType) VALUES(@ClientID, @Status, @Time, @Data, @SurveyType)";
-                return dba.CommandTypeText()
-                    .AddParameter("@ClientID", GetClientID())
-                    .AddParameter("@Status", SurveyControl.DONE)
-                    .AddParameter("@Time", DateTime.Now)
-                    .AddParameter("@Data", GetData())
-                    .AddParameter("@SurveyType", SurveyType)
-                    .ExecuteNonQuery(sql);
-            }
-        }
-
-        public int GetClientID()
-        {
-            return Convert.ToInt32(Session["ClientID"]);
+            string sql = "INSERT INTO Survey(ClientID, Status, Time, Data, SurveyType) VALUES(@ClientID, @Status, @Time, @Data, @SurveyType)";
+            return DA.Command(CommandType.Text)
+                .Param("ClientID", Context.CurrentUser().ClientID)
+                .Param("Status", DONE)
+                .Param("Time", DateTime.Now)
+                .Param("Data", GetData())
+                .Param("SurveyType", SurveyType)
+                .ExecuteNonQuery(sql)
+                .Value;
         }
     }
 }

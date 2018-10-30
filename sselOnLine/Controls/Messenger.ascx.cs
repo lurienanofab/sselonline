@@ -15,7 +15,7 @@ namespace sselOnLine.Controls
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            hidClientID.Value = CacheManager.Current.ClientID.ToString();
+            hidClientID.Value = CacheManager.Current.CurrentUser.ClientID.ToString();
             panAdmin.Visible = IsMessengerAdmin();
         }
 

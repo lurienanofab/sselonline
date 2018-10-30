@@ -57,13 +57,13 @@ namespace sselOnLine
         private void ValidPasswordCheck()
         {
             // this code enforces the rule that the password cannot be the same as the username
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
+            string pwd = DA.Command()
+                .Param(new { Action = "GetPassword", UserName = Context.User.Identity.Name })
+                .ExecuteScalar<string>("dbo.Client_CheckAuth");
+
+            if (new Encryption().EncryptText(User.Identity.Name) == pwd)
             {
-                string pwd = dba.ApplyParameters(new { Action = "GetPassword", UserName = Context.User.Identity.Name }).ExecuteScalar<string>("Client_CheckAuth");
-                if (new Encryption().EncryptText(User.Identity.Name) == pwd)
-                {
-                    hidPasswordRedirect.Value = "true";
-                }
+                hidPasswordRedirect.Value = "true";
             }
         }
 

@@ -10,40 +10,34 @@ namespace sselOnLine.AppCode.DAL
     {
         public static int InsertQuestion(int clientId, string answers, string text)
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
-            {
-                return dba.SelectCommand
-                    .CommandTypeText()
-                    .AddParameter("@ClientID", clientId)
-                    .AddParameter("@Answers", answers)
-                    .AddParameter("@QuestionText", text)
-                    .ExecuteNonQuery("INSERT SurveyQuestion (QuestionText, Answers, CreatedDate, ExpirationDate, Active, CreatedByClientID, UpdatedByClientID) VALUES (@QuestionText, @Answers, GETDATE(), NULL, 1, @ClientID, @ClientID)");
-            }
+            return DA.Command(CommandType.Text)
+                .Param("ClientID", clientId)
+                .Param("Answers", answers)
+                .Param("QuestionText", text)
+                .ExecuteNonQuery("INSERT SurveyQuestion (QuestionText, Answers, CreatedDate, ExpirationDate, Active, CreatedByClientID, UpdatedByClientID) VALUES (@QuestionText, @Answers, GETDATE(), NULL, 1, @ClientID, @ClientID)")
+                .Value;
         }
 
         public static DataRow SelectCurrentQuestion()
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
-            {
-                DataTable dt = dba.CommandTypeText().FillDataTable("SELECT * FROM SurveyQuestion WHERE ISNULL(ExpirationDate, DATEADD(dd, 1, GETDATE())) > GETDATE() AND Active = 1 ORDER BY CreatedDate DESC");
-                DataRow dr = (dt.Rows.Count > 0) ? dt.Rows[0] : null;
-                return dr;
-            }
+            var dt = DA.Command(CommandType.Text)
+                .FillDataTable("SELECT * FROM SurveyQuestion WHERE ISNULL(ExpirationDate, DATEADD(dd, 1, GETDATE())) > GETDATE() AND Active = 1 ORDER BY CreatedDate DESC");
+
+            DataRow dr = (dt.Rows.Count > 0) ? dt.Rows[0] : null;
+
+            return dr;
         }
 
         public static int InsertAnswer(int clientId, int questionId, string answer, string text, bool anon)
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
-            {
-                return dba.SelectCommand
-                    .CommandTypeText()
-                    .AddParameterIf("@ClientID", clientId == 0, clientId, DBNull.Value)
-                    .AddParameter("@QuestionID", questionId)
-                    .AddParameter("@ClientAnswer", SurveyDA.CleanInput(answer))
-                    .AddParameter("@TextAnswer", Utility.DBNullCheck(text, string.IsNullOrEmpty(text)))
-                    .AddParameter("@IsAnonymous", anon)
-                    .ExecuteNonQuery("INSERT ClientSurveyQuestion (ClientID, SurveyQuestionID, ClientAnswer, TextAnswer, AnswerDate, IsAnonymous) VALUES (@ClientID, @QuestionID, @ClientAnswer, @TextAnswer, GETDATE(), @IsAnonymous)");
-            }
+            return DA.Command(CommandType.Text)
+                .Param("ClientID", clientId == 0, DBNull.Value, clientId)
+                .Param("QuestionID", questionId)
+                .Param("ClientAnswer", CleanInput(answer))
+                .Param("TextAnswer", string.IsNullOrEmpty(text), DBNull.Value, text)
+                .Param("IsAnonymous", anon)
+                .ExecuteNonQuery("INSERT ClientSurveyQuestion (ClientID, SurveyQuestionID, ClientAnswer, TextAnswer, AnswerDate, IsAnonymous) VALUES (@ClientID, @QuestionID, @ClientAnswer, @TextAnswer, GETDATE(), @IsAnonymous)")
+                .Value;
         }
 
         private static string CleanInput(string input)
@@ -63,69 +57,52 @@ namespace sselOnLine.AppCode.DAL
 
         public static DataRow SelectClientResponse(int clientId, int questionId)
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
-            {
-                DataTable dt = dba.CommandTypeText()
-                    .AddParameter("@ClientID", clientId)
-                    .AddParameter("@QuestionID", questionId)
-                    .FillDataTable("SELECT * FROM ClientSurveyQuestion WHERE ClientID = @ClientID AND SurveyQuestionID = @QuestionID");
-                return dt.AsEnumerable().FirstOrDefault();
-            }
+            var dt = DA.Command(CommandType.Text)
+                .Param("ClientID", clientId)
+                .Param("QuestionID", questionId)
+                .FillDataTable("SELECT * FROM dbo.ClientSurveyQuestion WHERE ClientID = @ClientID AND SurveyQuestionID = @QuestionID");
+
+            return dt.AsEnumerable().FirstOrDefault();
         }
 
         public static DataTable SelectAllClientResponses(int questionId)
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
-            {
-                return dba.CommandTypeText()
-                    .AddParameter("@QuestionID", questionId)
-                    .FillDataTable("SELECT * FROM ClientSurveyQuestion WHERE SurveyQuestionID = @QuestionID");
-            }
+            return DA.Command(CommandType.Text)
+                .Param("QuestionID", questionId)
+                .FillDataTable("SELECT * FROM dbo.ClientSurveyQuestion WHERE SurveyQuestionID = @QuestionID");
         }
 
         public static DataTable SelectReportAllQuestions()
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
-            {
-                dba.AddParameter("@Action", "SelectReportAllQuestions");
-                DataTable dt = dba.FillDataTable("Survey_Select");
-                return dt;
-            }
+            return DA.Command()
+                .Param("Action", "SelectReportAllQuestions")
+                .FillDataTable("dbo.Survey_Select");
         }
 
         public static DataTable SelectReportByQuestionID(int surveyQuestionId)
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
-            {
-                dba.AddParameter("@Action", "SelectReportByQuestionID");
-                dba.AddParameter("@SurveyQuestionID", surveyQuestionId);
-                DataTable dt = dba.FillDataTable("Survey_Select");
-                return dt;
-            }
+            return DA.Command()
+                .Param("Action", "SelectReportByQuestionID")
+                .Param("SurveyQuestionID", surveyQuestionId)
+                .FillDataTable("dbo.Survey_Select");
         }
 
         public static void UpdateQuestion(int clientId, int questionId, string text, DateTime expirationDate, bool active)
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
-            {
-                dba.CommandTypeText()
-                    .AddParameter("@ClientID", clientId)
-                    .AddParameter("@QuestionID", questionId)
-                    .AddParameter("@QuestionText", CleanInput(text))
-                    .AddParameter("@ExpirationDate", Utility.DBNullCheck(expirationDate, expirationDate == DateTime.MinValue))
-                    .AddParameter("@Active", active)
-                    .ExecuteNonQuery("UPDATE SurveyQuestion SET QuestionText = @QuestionText, ExpirationDate = @ExpirationDate, Active = @Active, UpdatedByClientID = @ClientID WHERE SurveyQuestionID = @QuestionID");
-            }
+            DA.Command(CommandType.Text)
+                .Param("ClientID", clientId)
+                .Param("QuestionID", questionId)
+                .Param("QuestionText", CleanInput(text))
+                .Param("ExpirationDate", expirationDate == DateTime.MinValue, DBNull.Value, expirationDate)
+                .Param("Active", active)
+                .ExecuteNonQuery("UPDATE SurveyQuestion SET QuestionText = @QuestionText, ExpirationDate = @ExpirationDate, Active = @Active, UpdatedByClientID = @ClientID WHERE SurveyQuestionID = @QuestionID");
         }
 
         public static DataTable SelectAllQuestions()
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
-            {
-                dba.AddParameter("@Action", "SelectAllQuestions");
-                DataTable dt = dba.FillDataTable("Survey_Select");
-                return dt;
-            }
+            return DA.Command()
+                .Param("Action", "SelectAllQuestions")
+                .FillDataTable("dbo.Survey_Select");
         }
     }
 }

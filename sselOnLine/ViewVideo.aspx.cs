@@ -10,7 +10,7 @@ namespace sselOnLine
     {
         protected void btnView_Click(object sender, EventArgs e)
         {
-            var client = DA.Current.Single<Client>(CacheManager.Current.ClientID);
+            var client = DA.Current.Single<Client>(CacheManager.Current.CurrentUser.ClientID);
             client.IsChecked = true;
             Response.Redirect("http://cnfx.cnf.cornell.edu/mediasite/viewer/?peid=ae77f040-3aaf-4a82-86a0-bec3398a6e26");
         }

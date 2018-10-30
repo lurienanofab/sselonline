@@ -4,7 +4,6 @@ using LNF.CommonTools;
 using LNF.Repository;
 using System;
 using System.Configuration;
-using System.Data;
 using System.Net;
 using System.Text;
 
@@ -30,35 +29,36 @@ namespace sselOnLine.AppCode.BLL
 
         public static int InsertNewTestHeader(UserTest th)
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
+            var command = DA.Command().Param("Action", "FirstTest");
+
+            if (th.ClientID != 0) command.Param("ClientID", th.ClientID);
+            if (!string.IsNullOrEmpty(th.FirstName)) command.Param("FirstName", th.FirstName);
+            if (!string.IsNullOrEmpty(th.LastName)) command.Param("LastName", th.LastName);
+            if (!string.IsNullOrEmpty(th.Answer)) command.Param("Answer", th.Answer);
+            if (!string.IsNullOrEmpty(th.UMID)) command.Param("UMID", th.UMID);
+            if (!string.IsNullOrEmpty(th.Email)) command.Param("Email", th.Email);
+            if (!string.IsNullOrEmpty(th.Misc)) command.Param("Misc", th.Misc);
+            if (th.TestDate != DateTime.MinValue) command.Param("TestDate", th.TestDate);
+            if (th.TestID != 0) command.Param("TestID", th.TestID);
+            if (!string.IsNullOrEmpty(th.IP.ToString())) command.Param("ClientIP", th.IP.ToString());
+            int result = 0;
+
+            try
             {
-                dba.AddParameter("@Action", "FirstTest");
-                if (th.ClientID != 0) dba.AddParameter("@ClientID", th.ClientID);
-                if (!string.IsNullOrEmpty(th.FirstName)) dba.AddParameter("@FirstName", th.FirstName);
-                if (!string.IsNullOrEmpty(th.LastName)) dba.AddParameter("@LastName", th.LastName);
-                if (!string.IsNullOrEmpty(th.Answer)) dba.AddParameter("@Answer", th.Answer);
-                if (!string.IsNullOrEmpty(th.UMID)) dba.AddParameter("@UMID", th.UMID);
-                if (!string.IsNullOrEmpty(th.Email)) dba.AddParameter("@Email", th.Email);
-                if (!string.IsNullOrEmpty(th.Misc)) dba.AddParameter("@Misc", th.Misc);
-                if (th.TestDate != DateTime.MinValue) dba.AddParameter("@TestDate", th.TestDate);
-                if (th.TestID != 0) dba.AddParameter("@TestID", th.TestID);
-                if (!string.IsNullOrEmpty(th.IP.ToString())) dba.AddParameter("@ClientIP", th.IP.ToString());
-                int result = 0;
-                try
+                using (var reader = command.ExecuteReader("dbo.SafetyTestUser_Insert"))
                 {
-                    IDataReader reader = dba.ExecuteReader("SafetyTestUser_Insert");
                     if (reader.Read())
                         result = Convert.ToInt32(reader["UserTestID"]);
                     else
                         result = -1;
                 }
-                catch
-                {
-                    result = -2;
-                }
-
-                return result;
             }
+            catch
+            {
+                result = -2;
+            }
+
+            return result;
         }
 
         public static bool InsertAnswer(int userTestId, string answer, QuestionRange qr)
@@ -83,72 +83,68 @@ namespace sselOnLine.AppCode.BLL
 
         private static void UpdateAnswer(int userTestId, string answer)
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
-            {
-                dba.AddParameter("@UserTestID", userTestId);
-                dba.AddParameter("@Answer", answer);
-                dba.ExecuteNonQuery("SafetyTestUser_Update");
-            }
+            DA.Command()
+                .Param("UserTestID", userTestId)
+                .Param("Answer", answer)
+                .ExecuteNonQuery("dbo.SafetyTestUser_Update");
         }
 
         private static string GetUserAnswer(int userTestId)
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
+            string result = string.Empty;
+
+            try
             {
-                dba.AddParameter("@Action", "GetAnswer");
-                dba.AddParameter("@UserTestID", userTestId);
-                string result = string.Empty;
-                try
+                using (var reader = DA.Command().Param(new { Action = "GetAnswer", UserTestID = userTestId }).ExecuteReader("dbo.SafetyTestUser_Select"))
                 {
-                    IDataReader reader = dba.ExecuteReader("SafetyTestUser_Select");
                     if (reader.Read())
                     {
                         //only one column is returned
                         result = reader[0].ToString();
                     }
                 }
-                catch
-                {
-                    result = "Error";
-                }
-
-                return result;
             }
+            catch
+            {
+                result = "Error";
+            }
+
+            return result;
         }
 
         private static UserTest GetUserTest(int userTestId)
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
+            UserTest result = null;
+
+            try
             {
-                dba.AddParameter("@Action", "GetAll");
-                dba.AddParameter("@UserTestID", userTestId);
-                UserTest result = null;
-                try
+                using (var reader = DA.Command().Param(new { Action = "GetAll", UserTestID = userTestId }).ExecuteReader("dbo.SafetyTestUser_Select"))
                 {
-                    IDataReader reader = dba.ExecuteReader("SafetyTestUser_Select");
                     if (reader.Read())
                     {
-                        result = new UserTest();
-                        result.LastName = reader["LastName"].ToString();
-                        result.FirstName = reader["FirstName"].ToString();
-                        result.UMID = reader["UMID"].ToString();
-                        result.Email = reader["Email"].ToString();
-                        result.Misc = reader["Misc"].ToString();
-                        result.Answer = reader["Answer"].ToString();
-                        result.TestID = Convert.ToInt32(reader["TestID"]);
-                        result.UserTestID = userTestId;
-                        result.ClientID = Utility.ConvertTo(reader["ClientID"], 0);
-                        result.IP = IPAddress.Parse(reader["ClientIP"].ToString());
-                        result.ClientData = new UserTest.Client(result.ClientID);
+                        result = new UserTest()
+                        {
+                            LastName = reader["LastName"].ToString(),
+                            FirstName = reader["FirstName"].ToString(),
+                            UMID = reader["UMID"].ToString(),
+                            Email = reader["Email"].ToString(),
+                            Misc = reader["Misc"].ToString(),
+                            Answer = reader["Answer"].ToString(),
+                            TestID = Convert.ToInt32(reader["TestID"]),
+                            UserTestID = userTestId,
+                            ClientID = Utility.ConvertTo(reader["ClientID"], 0),
+                            IP = IPAddress.Parse(reader["ClientIP"].ToString()),
+                            ClientData = new UserTest.Client(result.ClientID)
+                        };
                     }
                 }
-                catch
-                {
-                    return null;
-                }
-
-                return result;
             }
+            catch
+            {
+                return null;
+            }
+
+            return result;
         }
 
         public static string GradeTest(int userTestId, TestType testType)
@@ -170,12 +166,10 @@ namespace sselOnLine.AppCode.BLL
             string adminEmail = string.Empty;
             string userEmail = userTest.ClientData.Email();
 
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
+            try
             {
-                dba.AddParameter("@TestID", testType);
-                try
+                using (var reader = DA.Command().Param("TestID", testType).ExecuteReader("dbo.SafetyTestAnswers_Select"))
                 {
-                    IDataReader reader = dba.ExecuteReader("SafetyTestAnswers_Select");
                     if (reader.Read())
                     {
                         //wtf? Using index here is a really bad idea. What are the column names??
@@ -185,10 +179,10 @@ namespace sselOnLine.AppCode.BLL
                     else
                         return @"<div style=""color: #FF0000; font-weight: bold;"">An error occurred while grading your test, please contact the LNF IT administrator. [No answers found for specified TestTypeID]</div>";
                 }
-                catch
-                {
-                    return @"<div style=""color: #FF0000; font-weight: bold;"">An error occurred while grading your test, please contact the LNF IT administrator. [Database error: unable to retrieve answers]</div>";
-                }
+            }
+            catch
+            {
+                return @"<div style=""color: #FF0000; font-weight: bold;"">An error occurred while grading your test, please contact the LNF IT administrator. [Database error: unable to retrieve answers]</div>";
             }
 
             adminEmail = (string.IsNullOrEmpty(adminEmail)) ? ConfigurationManager.AppSettings["EmailSafetyTestAdmin"] : adminEmail;
@@ -359,7 +353,7 @@ namespace sselOnLine.AppCode.BLL
         public static void SendEmail(string adminToAddr, string subj, string body)
         {
             ServiceProvider.Current.Email.SendMessage(
-                CacheManager.Current.ClientID,
+                CacheManager.Current.CurrentUser.ClientID,
                 "seslOnLine.AppCode.BLL.TestManager.SendEmail(string adminToAddr, string subj, string body)",
                 subj + " [Admin Notice]",
                 body,
@@ -371,7 +365,7 @@ namespace sselOnLine.AppCode.BLL
         public static void SendEmail(string adminToAddr, string userToAddr, string subject, string body)
         {
             ServiceProvider.Current.Email.SendMessage(
-                CacheManager.Current.ClientID,
+                CacheManager.Current.CurrentUser.ClientID,
                 "seslOnLine.AppCode.BLL.TestManager.SendEmail(string adminToAddr, string userToAddr, string subject, string body)",
                 subject,
                 body,

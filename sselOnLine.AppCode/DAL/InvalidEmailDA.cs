@@ -1,5 +1,4 @@
-﻿using LNF.CommonTools;
-using LNF.Repository;
+﻿using LNF.Repository;
 using System.Data;
 
 namespace sselOnLine.AppCode.DAL
@@ -8,18 +7,18 @@ namespace sselOnLine.AppCode.DAL
     {
         public static DataTable GetAllInvalidEmailAddresses()
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
-                return dba.ApplyParameters(new { Action = "SelectAll" }).FillDataTable("InvalidEmailList_Select");
+            return DA.Command().Param("Action", "SelectAll").FillDataTable("dbo.InvalidEmailList_Select");
         }
 
         public static DataTable GetInvalidEmailListFiltering()
         {
-            using (SQLDBAccess dba = new SQLDBAccess("cnSselData"))
-            {
-                DataTable dt = dba.ApplyParameters(new { Action = "SelectFiltering" }).FillDataTable("InvalidEmailList_Select");
-                dt.PrimaryKey = new DataColumn[] { dt.Columns["EmailID"] };
-                return dt;
-            }
+            var dt = DA.Command()
+                .Param("Action", "SelectFiltering")
+                .FillDataTable("dbo.InvalidEmailList_Select");
+
+            dt.PrimaryKey = new[] { dt.Columns["EmailID"] };
+
+            return dt;
         }
     }
 }

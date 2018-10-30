@@ -49,6 +49,11 @@
             var event = document.createEvent("HTMLEvents");
             event.initEvent("resize", true, false);
             window.dispatchEvent(event);
+
+            // this will close an open dropdown menu when the frame document is clicked
+            $(fdoc).on("click", function (e) {
+                $(".menu > nav .dropdown.open,.menu > nav .navbar-collapse.collapse.in").removeClass("open in");
+            });
         }
 
         idleTimeout.watch(window, "PARENT");

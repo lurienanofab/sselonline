@@ -143,7 +143,7 @@ namespace sselOnLine
                     return;
                 }
 
-                bool isKiosk = chkKiosk.Checked || KioskUtility.IsKiosk();
+                bool isKiosk = chkKiosk.Checked || KioskUtility.IsOnKiosk(Request.UserHostAddress);
 
                 HttpCookie authCookie = FormsAuthentication.GetAuthCookie(c.UserName, false);
                 FormsAuthenticationTicket formInfoTicket = FormsAuthentication.Decrypt(authCookie.Value);

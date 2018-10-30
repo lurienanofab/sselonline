@@ -7,6 +7,7 @@ using sselOnLine.AppCode.BLL;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -96,7 +97,7 @@ namespace sselOnLine
             return ConfigurationManager.AppSettings["SecurePath"] + "\\testfiles\\" + testFileName;
         }
 
-        protected void btnStart_Click(object sender, EventArgs e)
+        protected void BtnStart_Click(object sender, EventArgs e)
         {
             RegisterAsyncTask(new PageAsyncTask(StartTestAsync));
         }
@@ -177,7 +178,7 @@ namespace sselOnLine
             }
         }
 
-        protected void rptQuestions_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        protected void RptQuestions_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
@@ -192,7 +193,7 @@ namespace sselOnLine
             }
         }
 
-        protected void btnNext_Click(object sender, EventArgs e)
+        protected void BtnNext_Click(object sender, EventArgs e)
         {
             if (CheckSession())
             {
@@ -289,24 +290,22 @@ namespace sselOnLine
                 clientid = CurrentUser.ClientID;
 
             // @Answer was a comma separated string but now a subset of questions might be used, and also the order might be random, so we also need to save the QuestionNumber along with the user answer.
-            var answers =  _QuestionsList.Select(x => new { q = x.QuestionNumber, a = x.UserSelectedAnswer }).ToArray();
+            var answers = _QuestionsList.Select(x => new { q = x.QuestionNumber, a = x.UserSelectedAnswer }).ToArray();
             string answersJson = JsonConvert.SerializeObject(answers);
 
-            using (var dba = DA.Current.GetAdapter())
-            {
-                string sql = "INSERT sselData.dbo.SafetyTestUser (FirstName, LastName, UMID, GroupName, Email, Misc, Answer, TestDate, TestID, ClientID, ClientIP) VALUES (@FirstName, @LastName, @UMID, @GroupName, @Email, NULL, @Answer, GETDATE(), @TestID, @ClientID, @ClientIP)";
-                return dba.CommandTypeText()
-                    .AddParameter("@FirstName", _FirstName)
-                    .AddParameter("@LastName", _LastName)
-                    .AddParameter("@UMID", "-") // UMID is not used anymore
-                    .AddParameter("@GroupName", _GroupName)
-                    .AddParameter("@Email", _Email)
-                    .AddParameter("@Answer", answersJson)
-                    .AddParameter("@TestID", GetXMLTestRoot().TestType)
-                    .AddParameter("@ClientID", clientid)
-                    .AddParameter("@ClientIP", Request.ServerVariables["REMOTE_ADDR"])
-                    .ExecuteNonQuery(sql);
-            }
+            string sql = "INSERT sselData.dbo.SafetyTestUser (FirstName, LastName, UMID, GroupName, Email, Misc, Answer, TestDate, TestID, ClientID, ClientIP) VALUES (@FirstName, @LastName, @UMID, @GroupName, @Email, NULL, @Answer, GETDATE(), @TestID, @ClientID, @ClientIP)";
+            return DA.Command(CommandType.Text)
+                .Param("FirstName", _FirstName)
+                .Param("LastName", _LastName)
+                .Param("UMID", "-") // UMID is not used anymore
+                .Param("GroupName", _GroupName)
+                .Param("Email", _Email)
+                .Param("Answer", answersJson)
+                .Param("TestID", GetXMLTestRoot().TestType)
+                .Param("ClientID", clientid)
+                .Param("ClientIP", Request.ServerVariables["REMOTE_ADDR"])
+                .ExecuteNonQuery(sql)
+                .Value;
         }
 
         private string EmailAnswers(bool passed)
@@ -466,7 +465,7 @@ namespace sselOnLine
             return true;
         }
 
-        protected void btnSendTestEmail_Click(object sender, EventArgs e)
+        protected void BtnSendTestEmail_Click(object sender, EventArgs e)
         {
             SendEmail("jgett@umich.edu", "jgett@lnf.umich.edu", "This is a test", "Hello World!");
             litSendTestEmailMessage.Text = "<span><strong>Test email was sent!</strong></span>";

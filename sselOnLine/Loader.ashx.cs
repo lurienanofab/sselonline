@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using LNF.Scheduler;
 using System.Web;
 using System.Web.SessionState;
-using LNF.Cache;
-using LNF.Scheduler;
 
 namespace sselOnLine
 {
@@ -17,7 +13,7 @@ namespace sselOnLine
         {
             string redirectUrl = "~/Blank.aspx";
             string room = GetRoom(context);
-            bool isOnKiosk = !string.IsNullOrEmpty(room) || CacheManager.Current.IsOnKiosk();
+            bool isOnKiosk = !string.IsNullOrEmpty(room) || KioskUtility.IsOnKiosk(context.Request.UserHostAddress);
 
             if (isOnKiosk)
                 redirectUrl = "/" + KioskUtility.KioskRedirectUrl();
