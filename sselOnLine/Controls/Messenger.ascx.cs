@@ -1,27 +1,34 @@
 ﻿using LNF;
-using LNF.Cache;
 using LNF.Data;
 using LNF.Models.Data;
 using LNF.Repository;
 using LNF.Repository.Data;
-using LNF.Scheduler;
+using LNF.Web;
 using System;
 using System.Linq;
+using System.Web;
 using System.Web.UI.WebControls;
 
 namespace sselOnLine.Controls
 {
     public partial class Messenger : System.Web.UI.UserControl
     {
+        public HttpContextBase ContextBase { get; set; }
+
+        public Messenger()
+        {
+            ContextBase = new HttpContextWrapper(Context);
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            hidClientID.Value = CacheManager.Current.CurrentUser.ClientID.ToString();
+            hidClientID.Value = ContextBase.CurrentUser().ClientID.ToString();
             panAdmin.Visible = IsMessengerAdmin();
         }
 
         private bool IsMessengerAdmin()
         {
-            return CacheManager.Current.CurrentUser.HasPriv(ClientPrivilege.Developer);
+            return ContextBase.CurrentUser().HasPriv(ClientPrivilege.Developer);
         }
 
         protected void btnCompose_Click(object sender, EventArgs e)
@@ -35,10 +42,10 @@ namespace sselOnLine.Controls
             cblCommunity.DataSource = DA.Current.Query<Community>().ToArray();
             cblCommunity.DataBind();
 
-            ddlManagers.DataSource = DA.Use<IClientOrgManager>().AllActiveManagers().Select(x => new { x.ClientOrgID, x.Client.DisplayName }).OrderBy(x => x.DisplayName);
+            ddlManagers.DataSource = ServiceProvider.Current.Data.Client.AllActiveManagers().Select(x => new { x.ClientOrgID, x.DisplayName }).OrderBy(x => x.DisplayName);
             ddlManagers.DataBind();
 
-            lbTools.DataSource = DA.Use<IResourceManager>().SelectActive().OrderBy(x => x.ResourceName).ToList();
+            lbTools.DataSource = ServiceProvider.Current.ResourceManager.SelectActive().OrderBy(x => x.ResourceName).ToList();
             lbTools.DataBind();
 
             cblAreas.DataSource = ServiceProvider.Current.PhysicalAccess.GetAreas();

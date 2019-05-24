@@ -1,7 +1,7 @@
 ﻿using LNF;
-using LNF.Cache;
 using LNF.CommonTools;
 using LNF.Models.Data;
+using LNF.Web;
 using LNF.Web.Content;
 using System;
 using System.Configuration;
@@ -20,9 +20,9 @@ namespace sselOnLine
 
             //If there is a problem with the session but the user is sill authenticated this will restore the session variables.
             //If the user is not authenticated they will be redirected to the log in page by FormsAuthentication.
-            CacheManager.Current.CheckSession();
+            ContextBase.CheckSession();
 
-            phStaging.Visible = CacheManager.Current.CurrentUser.HasPriv(ClientPrivilege.Staff | ClientPrivilege.Administrator | ClientPrivilege.Developer);
+            phStaging.Visible = CurrentUser.HasPriv(ClientPrivilege.Staff | ClientPrivilege.Administrator | ClientPrivilege.Developer);
 
             phGoogleAnalytics.Visible = ServiceProvider.Current.IsProduction();
 

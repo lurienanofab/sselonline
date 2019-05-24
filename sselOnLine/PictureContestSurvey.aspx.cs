@@ -53,8 +53,6 @@ namespace sselOnLine
         }
         protected void btnSaveVoting_Click(object sender, EventArgs e)
         {
-
-
             List<Guid> userVotedImages = new List<Guid>();
 
             foreach (RepeaterItem i in rptImages.Items)
@@ -68,14 +66,12 @@ namespace sselOnLine
                 }
             }
 
-            var c = CacheManager.Current.CurrentUser;
-
             ContestVoter voter = new ContestVoter()
             {
-                ClientID = c.ClientID,
-                FName = c.FName,
-                LName = c.LName,
-                MName = c.MName,
+                ClientID = CurrentUser.ClientID,
+                FName = CurrentUser.FName,
+                LName = CurrentUser.LName,
+                MName = CurrentUser.MName,
                 VoteDateTime = DateTime.Now,
                 SelectedImages = userVotedImages
             };

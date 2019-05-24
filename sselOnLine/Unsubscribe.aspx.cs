@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Configuration;
+﻿using LNF;
+using LNF.Models.Mail;
 using sselOnLine.AppCode;
 using sselOnLine.AppCode.BLL;
-using LNF;
+using System;
+using System.Configuration;
+using System.Web.UI;
 
 namespace sselOnLine
 {
-    public partial class Unsubscribe : System.Web.UI.Page
+    public partial class Unsubscribe : Page
     {
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
@@ -46,7 +43,16 @@ namespace sselOnLine
 
             try
             {
-                ServiceProvider.Current.Email.SendMessage(0, "sselOnLine.Unsubscribe.btnSubmit_Click(object sender, EventArgs e)", "LNF User List unsubscribe request from " + user.DisplayName, bodytext, "system@lnf.umich.edu", new string[] { ConfigurationManager.AppSettings["EmailUnsubscribe"] });
+                ServiceProvider.Current.Mail.SendMessage(new SendMessageArgs
+                {
+                    ClientID = 0,
+                    Caller = "sselOnLine.Unsubscribe.btnSubmit_Click",
+                    Subject = $"LNF User List unsubscribe request from {user.DisplayName}",
+                    Body = bodytext,
+                    From = "system@lnf.umich.edu",
+                    To = new string[] { ConfigurationManager.AppSettings["EmailUnsubscribe"] }
+                });
+
                 lblMsg.Text = "Your request to unsubscribe has been sent to the administrator. It might take several days for the change to take effect.";
             }
             catch (Exception ex)

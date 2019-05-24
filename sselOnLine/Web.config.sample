@@ -14,169 +14,172 @@
     <provider production="false">
       <context loginUrl="/login" />
       <dataAccess showSql="true" />
-      <email host="127.0.0.1" log="true" />
+      <email host="xxxxx" log="true" />
       <control host="xxxxx" />
       <log name="sselOnLine" enabled="true" />
     </provider>
   </lnf>
 
-    <appSettings>
-        <add key="SecretKey" value="xxxxx" />
-        <add key="StaticHost" value="xxxxx" />
-        <add key="ScreensaverUrl" value="xxxxx"/>
-        <add key="EmailHost" value="xxxxx" />
-        <add key="TestingEmail" value="xxxxx" />
-        <add key="EmailSafetyTestAdmin" value="xxxxx" />
-        <add key="EmailUnsubscribe" value="xxxxx" />
-        <add key="SecurePath" value="xxxxx" />
-        <add key="ShowMetersOnLoginPage" value="No" />
-        <add key="ShowKioskLoginOptionIpList" value="xxxxx" />
-        <add key="LoginRequirementEmail" value="xxxxx" />
-        <add key="RolesUsingIOF2" value="Staff|FinancialAdmin" />
-        <add key="CaptchaPublicKey" value="xxxxx" />
-        <add key="CaptchaPrivateKey" value="xxxxx" />
-        <add key="DefaultDomain" value="xxxxx" />
-        <add key="AuthDomain" value="xxxxx" />
-        <add key="RequireSSL" value="false" />
-        <add key="AppServer" value="xxxxx" />
-        <add key="SchedServer" value="xxxxx" />
-        <add key="LoginUrl" value="xxxxx" />
-        <add key="UseMobileSite" value="false" />
-        <add key="PictureContestName" value="xxxxx" />
-        <add key="PictureContestTitle" value="xxxxx" />
-        <add key="PictureContestUploadDir" value="xxxxx" />
-        <add key="PictureContestAllowedFileTypes" value="xxxxx" />
-        <add key="PictureContestMaxUploads" value="xxxxx" />
-        <add key="PictureContestMaxDescriptionLength" value="xxxxx" />
-        <add key="PictureContestAllowVoting" value="xxxxx" />
-        <add key="MongoConnectionString" value="xxxxx" />
-        <add key="UserCommitteeMembers" value="xxxxx" />
-        <add key="OverrideIsOnKiosk" value="false" />
-        <add key="ValidationSettings:UnobtrusiveValidationMode" value="None" />
-        <add key="owin:AutomaticAppStartup" value="false" />
-    </appSettings>
+  <appSettings>
+    <add key="SecretKey" value="xxxxx" />
+    <add key="StaticHost" value="xxxxx" />
+    <add key="ScreensaverUrl" value="xxxxx"/>
+    <add key="EmailHost" value="xxxxx" />
+    <add key="TestingEmail" value="xxxxx" />
+    <add key="EmailSafetyTestAdmin" value="xxxxx" />
+    <add key="EmailUnsubscribe" value="xxxxx" />
+    <add key="SecurePath" value="xxxxx" />
+    <add key="ShowMetersOnLoginPage" value="No" />
+    <add key="ShowKioskLoginOptionIpList" value="xxxxx" />
+    <add key="LoginRequirementEmail" value="xxxxx" />
+    <add key="RolesUsingIOF2" value="Staff|FinancialAdmin" />
+    <add key="CaptchaPublicKey" value="xxxxx" />
+    <add key="CaptchaPrivateKey" value="xxxxx" />
+    <add key="DefaultDomain" value="xxxxx" />
+    <add key="AuthDomain" value="xxxxx" />
+    <add key="RequireSSL" value="false" />
+    <add key="AppServer" value="xxxxx" />
+    <add key="SchedServer" value="xxxxx" />
+    <add key="ApiBaseUrl" value="xxxxx" />
+    <add key="BasicAuthUsername" value="xxxxx" />
+    <add key="BasicAuthPassword" value="xxxxx" />
+    <add key="LoginUrl" value="xxxxx" />
+    <add key="UseMobileSite" value="false" />
+    <add key="PictureContestName" value="xxxxx" />
+    <add key="PictureContestTitle" value="xxxxx" />
+    <add key="PictureContestUploadDir" value="xxxxx" />
+    <add key="PictureContestAllowedFileTypes" value="xxxxx" />
+    <add key="PictureContestMaxUploads" value="xxxxx" />
+    <add key="PictureContestMaxDescriptionLength" value="xxxxx" />
+    <add key="PictureContestAllowVoting" value="xxxxx" />
+    <add key="MongoConnectionString" value="xxxxx" />
+    <add key="UserCommitteeMembers" value="xxxxx" />
+    <add key="OverrideIsOnKiosk" value="false" />
+    <add key="ValidationSettings:UnobtrusiveValidationMode" value="None" />
+    <add key="owin:AutomaticAppStartup" value="false" />
+  </appSettings>
 
-    <connectionStrings>
-        <add name="cnSselData" connectionString="xxxxx" providerName="System.Data.SqlClient" />
-        <add name="cnSselScheduler" connectionString="xxxxx" providerName="System.Data.SqlClient" />
-        <add name="cnProwatch" connectionString="xxxxx" providerName="System.Data.SqlClient" />
-    </connectionStrings>
+  <connectionStrings>
+    <add name="cnSselData" connectionString="xxxxx" providerName="System.Data.SqlClient" />
+    <add name="cnSselScheduler" connectionString="xxxxx" providerName="System.Data.SqlClient" />
+    <add name="cnProwatch" connectionString="xxxxx" providerName="System.Data.SqlClient" />
+  </connectionStrings>
 
+  <system.web>
+    <compilation debug="true" targetFramework="4.6.1" />
+    <httpRuntime targetFramework="4.6.1" />
+
+    <pages controlRenderingCompatibilityVersion="4.0">
+      <controls>
+        <add tagPrefix="lnf" assembly="LNF.Web" namespace="LNF.Web.Controls.Navigation" />
+      </controls>
+    </pages>
+
+    <authentication mode="Forms">
+      <forms name="sselAuth.cookie" path="/" loginUrl="/login" timeout="480" protection="All" slidingExpiration="true" cookieless="UseCookies" domain="umich.edu" />
+    </authentication>
+
+    <authorization>
+      <deny users="?" />
+    </authorization>
+
+    <machineKey validationKey="xxxxx" decryptionKey="xxxxx" validation="SHA1" decryption="3DES" compatibilityMode="Framework20SP2" />
+
+    <customErrors mode="Off" />
+  </system.web>
+
+  <system.webServer>
+    <modules runAllManagedModulesForAllRequests="false">
+      <add name="LnfSessionModule" type="LNF.Impl.SessionModule" preCondition="managedHandler" />
+    </modules>
+
+    <handlers>
+      <remove name="UrlRoutingModule-4.0" />
+      <remove name="ExtensionlessUrl-ISAPI-4.0_32bit" />
+      <remove name="ExtensionlessUrl-ISAPI-4.0_64bit" />
+      <remove name="ExtensionlessUrl-Integrated-4.0" />
+    </handlers>
+
+    <defaultDocument enabled="true" />
+  </system.webServer>
+
+  <location path="Login.aspx">
     <system.web>
-        <compilation debug="true" targetFramework="4.6.1" />
-        <httpRuntime targetFramework="4.6.1" />
-
-        <pages controlRenderingCompatibilityVersion="4.0">
-            <controls>
-                <add tagPrefix="lnf" assembly="LNF.Web" namespace="LNF.Web.Controls.Navigation" />
-            </controls>
-        </pages>
-
-        <authentication mode="Forms">
-            <forms name="sselAuth.cookie" path="/" loginUrl="/login" timeout="480" protection="All" slidingExpiration="true" cookieless="UseCookies" domain="umich.edu" />
-        </authentication>
-
-        <authorization>
-            <deny users="?" />
-        </authorization>
-
-        <machineKey validationKey="xxxxx" decryptionKey="xxxxx" validation="SHA1" decryption="3DES" compatibilityMode="Framework20SP2" />
-
-        <customErrors mode="Off" />
+      <authorization>
+        <allow users="*" />
+      </authorization>
     </system.web>
+  </location>
 
-    <system.webServer>
-        <modules runAllManagedModulesForAllRequests="false">
-            <add name="LnfSessionModule" type="LNF.Impl.SessionModule" preCondition="managedHandler" />
-        </modules>
+  <location path="Unsubscribe.aspx">
+    <system.web>
+      <authorization>
+        <allow users="*" />
+      </authorization>
+    </system.web>
+  </location>
 
-        <handlers>
-            <remove name="UrlRoutingModule-4.0" />
-            <remove name="ExtensionlessUrl-ISAPI-4.0_32bit" />
-            <remove name="ExtensionlessUrl-ISAPI-4.0_64bit" />
-            <remove name="ExtensionlessUrl-Integrated-4.0" />
-        </handlers>
+  <location path="TestPage.aspx">
+    <system.web>
+      <authorization>
+        <allow users="*" />
+      </authorization>
+    </system.web>
+  </location>
 
-        <defaultDocument enabled="true" />
-    </system.webServer>
+  <location path="Test.aspx">
+    <system.web>
+      <authorization>
+        <allow users="*" />
+      </authorization>
+    </system.web>
+  </location>
 
-    <location path="Login.aspx">
-        <system.web>
-            <authorization>
-                <allow users="*" />
-            </authorization>
-        </system.web>
-    </location>
+  <location path="SafetyTest.aspx">
+    <system.web>
+      <authorization>
+        <allow users="*" />
+      </authorization>
+    </system.web>
+  </location>
 
-    <location path="Unsubscribe.aspx">
-        <system.web>
-            <authorization>
-                <allow users="*" />
-            </authorization>
-        </system.web>
-    </location>
+  <location path="TestLNF.aspx">
+    <system.web>
+      <authorization>
+        <allow users="*" />
+      </authorization>
+    </system.web>
+  </location>
 
-    <location path="TestPage.aspx">
-        <system.web>
-            <authorization>
-                <allow users="*" />
-            </authorization>
-        </system.web>
-    </location>
+  <location path="TestOSEH.aspx">
+    <system.web>
+      <authorization>
+        <allow users="*" />
+      </authorization>
+    </system.web>
+  </location>
 
-    <location path="Test.aspx">
-        <system.web>
-            <authorization>
-                <allow users="*" />
-            </authorization>
-        </system.web>
-    </location>
+  <location path="TestHF.aspx">
+    <system.web>
+      <authorization>
+        <allow users="*" />
+      </authorization>
+    </system.web>
+  </location>
 
-    <location path="SafetyTest.aspx">
-        <system.web>
-            <authorization>
-                <allow users="*" />
-            </authorization>
-        </system.web>
-    </location>
+  <location path="images">
+    <system.web>
+      <authorization>
+        <allow users="*" />
+      </authorization>
+    </system.web>
+  </location>
 
-    <location path="TestLNF.aspx">
-        <system.web>
-            <authorization>
-                <allow users="*" />
-            </authorization>
-        </system.web>
-    </location>
-
-    <location path="TestOSEH.aspx">
-        <system.web>
-            <authorization>
-                <allow users="*" />
-            </authorization>
-        </system.web>
-    </location>
-
-    <location path="TestHF.aspx">
-        <system.web>
-            <authorization>
-                <allow users="*" />
-            </authorization>
-        </system.web>
-    </location>
-
-    <location path="images">
-        <system.web>
-            <authorization>
-                <allow users="*" />
-            </authorization>
-        </system.web>
-    </location>
-
-    <location path="styles">
-        <system.web>
-            <authorization>
-                <allow users="*" />
-            </authorization>
-        </system.web>
-    </location>
+  <location path="styles">
+    <system.web>
+      <authorization>
+        <allow users="*" />
+      </authorization>
+    </system.web>
+  </location>
 </configuration>

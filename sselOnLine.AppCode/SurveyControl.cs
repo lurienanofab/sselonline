@@ -4,6 +4,7 @@ using LNF.Repository;
 using LNF.Web;
 using System;
 using System.Data;
+using System.Web;
 using System.Web.UI;
 
 namespace sselOnLine.AppCode
@@ -18,12 +19,15 @@ namespace sselOnLine.AppCode
 
         public string SurveyType { get; set; }
 
+        public HttpContextBase ContextBase { get; }
+
         public abstract string GetData();
 
         public SurveyControl()
         {
             Privs = 0;
             CutoffClientID = 0;
+            ContextBase = new HttpContextWrapper(Context);
         }
 
         public bool IsUserAlreadyCompleted()
@@ -33,21 +37,21 @@ namespace sselOnLine.AppCode
             if (CutoffClientID == 0)
                 result = false;
             else
-                result = Context.CurrentUser().ClientID > CutoffClientID;
+                result = ContextBase.CurrentUser().ClientID > CutoffClientID;
 
             if (!result)
             {
                 if (Privs == 0)
                     result = false;
                 else
-                    result = !Context.CurrentUser().HasPriv(PrivUtility.CalculatePriv(Privs));
+                    result = !ContextBase.CurrentUser().HasPriv(PrivUtility.CalculatePriv(Privs));
             }
 
             if (result) return true;
 
             string sql = "SELECT * FROM Survey WHERE ClientID = @ClientID AND SurveyType = @SurveyType";
 
-            using (var reader = DA.Command(CommandType.Text).Param(new { Context.CurrentUser().ClientID, SurveyType }).ExecuteReader(sql))
+            using (var reader = DA.Command(CommandType.Text).Param(new { ContextBase.CurrentUser().ClientID, SurveyType }).ExecuteReader(sql))
             {
                 if (reader.Read())
                 {
@@ -67,7 +71,7 @@ namespace sselOnLine.AppCode
         {
             string sql = "INSERT INTO Survey(ClientID, Status, Time, Data, SurveyType) VALUES(@ClientID, @Status, @Time, @Data, @SurveyType)";
             return DA.Command(CommandType.Text)
-                .Param("ClientID", Context.CurrentUser().ClientID)
+                .Param("ClientID", ContextBase.CurrentUser().ClientID)
                 .Param("Status", DONE)
                 .Param("Time", DateTime.Now)
                 .Param("Data", GetData())

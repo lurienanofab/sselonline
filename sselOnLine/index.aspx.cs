@@ -1,6 +1,6 @@
-﻿using LNF.Cache;
-using LNF.CommonTools;
+﻿using LNF.CommonTools;
 using LNF.Repository;
+using LNF.Web;
 using LNF.Web.Content;
 using System;
 
@@ -10,7 +10,7 @@ namespace sselOnLine
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            CacheManager.Current.CheckSession();
+            ContextBase.CheckSession();
 
             if (!Page.IsPostBack)
             {
@@ -59,7 +59,7 @@ namespace sselOnLine
             // this code enforces the rule that the password cannot be the same as the username
             string pwd = DA.Command()
                 .Param(new { Action = "GetPassword", UserName = Context.User.Identity.Name })
-                .ExecuteScalar<string>("dbo.Client_CheckAuth");
+                .ExecuteScalar<string>("dbo.Client_CheckAuth").Value;
 
             if (new Encryption().EncryptText(User.Identity.Name) == pwd)
             {

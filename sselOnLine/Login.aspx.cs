@@ -1,9 +1,7 @@
 ﻿using LNF;
 using LNF.CommonTools;
-using LNF.Data;
 using LNF.Hooks;
 using LNF.Models.Data;
-using LNF.Repository;
 using LNF.Scheduler;
 using LNF.Web.Content;
 using sselOnLine.AppCode;
@@ -121,7 +119,7 @@ namespace sselOnLine
             //2011-05-13 now the universal password code is handled in ClientDB.Login
             string debug = string.Empty;
 
-            ClientItem c = null;
+            IClient c = null;
             if (result.IsLoggedIn)
             {
                 debug += "result.IsLoggedIn = true";
@@ -129,7 +127,7 @@ namespace sselOnLine
             }
             else
             {
-                c = DA.Use<IClientManager>().Login(context.Username, context.Password);
+                c = ServiceProvider.Current.Data.Client.Login(context.Username, context.Password);
                 debug += "result.IsLoggedIn = false, c " + (c == null ? "is null" : "is not null, username = " + context.Username + ", password = " + context.Password);
             }
 

@@ -67,14 +67,14 @@ namespace sselOnLine
 
         private VoteResultItem CreateVoteResultItem(ContestImage image)
         {
-            Client c = DA.Current.Single<Client>(image.ClientID);
+            var c = DA.Current.Single<ClientInfo>(image.ClientID);
 
             return new VoteResultItem()
             {
                 ImageID = image.ImageID,
                 VoteCount = GetVoteCount(image),
                 Description = image.Description,
-                SubmittedBy = string.Format("{0} ({1})", c.DisplayName, DA.Use<IClientManager>().PrimaryEmail(c))
+                SubmittedBy = string.Format("{0} ({1})", c.DisplayName, c.Email)
             };
         }
 

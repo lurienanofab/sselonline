@@ -1,6 +1,6 @@
 ﻿using LNF;
-using LNF.Cache;
 using LNF.CommonTools;
+using LNF.Models.Mail;
 using LNF.Repository;
 using System;
 using System.Configuration;
@@ -352,27 +352,31 @@ namespace sselOnLine.AppCode.BLL
 
         public static void SendEmail(string adminToAddr, string subj, string body)
         {
-            ServiceProvider.Current.Email.SendMessage(
-                CacheManager.Current.CurrentUser.ClientID,
-                "seslOnLine.AppCode.BLL.TestManager.SendEmail(string adminToAddr, string subj, string body)",
-                subj + " [Admin Notice]",
-                body,
-                from: GetFromAddress(),
-                to: new string[] { adminToAddr },
-                isHtml: true);
+            ServiceProvider.Current.Mail.SendMessage(new SendMessageArgs
+            {
+                ClientID = 0,
+                Caller = "seslOnLine.AppCode.BLL.TestManager.SendEmail[1]",
+                Subject = subj + " [Admin Notice]",
+                Body = body,
+                From = GetFromAddress(),
+                To = new string[] { adminToAddr },
+                IsHtml = true
+            });
         }
 
         public static void SendEmail(string adminToAddr, string userToAddr, string subject, string body)
         {
-            ServiceProvider.Current.Email.SendMessage(
-                CacheManager.Current.CurrentUser.ClientID,
-                "seslOnLine.AppCode.BLL.TestManager.SendEmail(string adminToAddr, string userToAddr, string subject, string body)",
-                subject,
-                body,
-                from: GetFromAddress(),
-                to: new string[] { userToAddr },
-                cc: new string[] { adminToAddr },
-                isHtml: true);
+            ServiceProvider.Current.Mail.SendMessage(new SendMessageArgs
+            {
+                ClientID = 0,
+                Caller = "seslOnLine.AppCode.BLL.TestManager.SendEmail[2]",
+                Subject = subject,
+                Body = body,
+                From = GetFromAddress(),
+                To = new string[] { userToAddr },
+                Cc = new string[] { adminToAddr },
+                IsHtml = true
+            });
         }
     }
 }
