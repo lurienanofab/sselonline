@@ -31,7 +31,7 @@ namespace sselOnLine.Controls
             return ContextBase.CurrentUser().HasPriv(ClientPrivilege.Developer);
         }
 
-        protected void btnCompose_Click(object sender, EventArgs e)
+        protected void BtnCompose_Click(object sender, EventArgs e)
         {
             panCompose.Visible = true;
             btnCompose.Visible = false;
@@ -42,23 +42,23 @@ namespace sselOnLine.Controls
             cblCommunity.DataSource = DA.Current.Query<Community>().ToArray();
             cblCommunity.DataBind();
 
-            ddlManagers.DataSource = ServiceProvider.Current.Data.Client.AllActiveManagers().Select(x => new { x.ClientOrgID, x.DisplayName }).OrderBy(x => x.DisplayName);
+            ddlManagers.DataSource = ServiceProvider.Current.Data.Client.AllActiveManagers().Select(x => new { ClientOrgID = Convert.ToInt32(x.Value), DisplayName = x.Text }).OrderBy(x => x.DisplayName);
             ddlManagers.DataBind();
 
-            lbTools.DataSource = ServiceProvider.Current.ResourceManager.SelectActive().OrderBy(x => x.ResourceName).ToList();
+            lbTools.DataSource = ServiceProvider.Current.Scheduler.Resource.SelectActive().OrderBy(x => x.ResourceName).ToList();
             lbTools.DataBind();
 
             cblAreas.DataSource = ServiceProvider.Current.PhysicalAccess.GetAreas();
             cblAreas.DataBind();
         }
 
-        protected void btnCancel_Click(object sender, EventArgs e)
+        protected void BtnCancel_Click(object sender, EventArgs e)
         {
             panCompose.Visible = false;
             btnCompose.Visible = true;
         }
 
-        protected void btnViewRecipients_Click(object sender, EventArgs e)
+        protected void BtnViewRecipients_Click(object sender, EventArgs e)
         {
 
         }

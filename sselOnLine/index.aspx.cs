@@ -34,6 +34,8 @@ namespace sselOnLine
                 Session["Room"] = Request.QueryString["room"];
 
                 HandleViewUrl();
+
+                hidIpAddr.Value = ContextBase.CurrentIP();
             }
         }
 

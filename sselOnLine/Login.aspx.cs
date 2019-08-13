@@ -19,6 +19,14 @@ namespace sselOnLine
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // This page has been replaced.
+            string appServer = ConfigurationManager.AppSettings["AppServer"];
+
+            if (string.IsNullOrEmpty(appServer))
+                throw new Exception("Missing required appSetting: AppServer");
+
+            Response.Redirect($"http://{appServer}/login", true);
+
             string loginUrl = GetLoginUrl();
 
             if (!string.IsNullOrEmpty(loginUrl))

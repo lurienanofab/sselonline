@@ -1,4 +1,5 @@
 ﻿using LNF.Scheduler;
+using LNF.Web;
 using System.Web;
 using System.Web.SessionState;
 
@@ -9,25 +10,34 @@ namespace sselOnLine
     /// </summary>
     public class Loader : IHttpHandler, IRequiresSessionState
     {
+        public HttpContextBase ContextBase { get; private set; }
+
         public void ProcessRequest(HttpContext context)
         {
+            ContextBase = new HttpContextWrapper(context);
+
             string redirectUrl = "~/Blank.aspx";
-            string room = GetRoom(context);
-            bool isOnKiosk = !string.IsNullOrEmpty(room) || KioskUtility.IsOnKiosk(context.Request.UserHostAddress);
+            string room = GetRoom();
+            string currentIp = ContextBase.CurrentIP();
+
+            bool isOnKiosk = !string.IsNullOrEmpty(room) || KioskUtility.IsOnKiosk(currentIp);
 
             if (isOnKiosk)
-                redirectUrl = "/" + KioskUtility.KioskRedirectUrl();
+            {
+                
+                redirectUrl = "/" + KioskUtility.KioskRedirectUrl(currentIp);
+            }
 
             context.Response.Redirect(redirectUrl);
         }
 
-        private string GetRoom(HttpContext context)
+        private string GetRoom()
         {
             string result = string.Empty;
-            if (context.Session["Room"] != null)
+            if (ContextBase.Session["Room"] != null)
             {
-                result = context.Session["Room"].ToString();
-                context.Session.Remove("Room");
+                result = ContextBase.Session["Room"].ToString();
+                ContextBase.Session.Remove("Room");
             }
             return result;
         }

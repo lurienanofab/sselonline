@@ -159,6 +159,7 @@
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\jquery.alerts\jquery.alerts.css" />
     <Content Include="scripts\jquery.alerts\jquery.alerts.js" />
+    <Content Include="scripts\modernizr-2.8.3.js" />
     <Content Include="SignOut.aspx" />
     <Content Include="styles\bootstrap-theme.min.css" />
     <Content Include="styles\bootstrap.min.css" />

@@ -3,7 +3,7 @@
     <input type="hidden" runat="server" id="hidClientID" class="client-id" />
     <ul class="message-list" style="display: none;"></ul>
     <asp:Panel runat="server" ID="panAdmin" Visible="false" CssClass="admin">
-        <asp:LinkButton runat="server" ID="btnCompose" Text="Messenger Administration" OnClick="btnCompose_Click" CssClass="admin-link"></asp:LinkButton>
+        <asp:LinkButton runat="server" ID="btnCompose" Text="Messenger Administration" OnClick="BtnCompose_Click" CssClass="admin-link"></asp:LinkButton>
         <asp:Panel runat="server" ID="panCompose" Visible="false" CssClass="compose">
             <div class="label">
                 Recipients
@@ -72,7 +72,7 @@
             </div>
             <div class="control">
                 <input type="button" value="Send" class="send-message" />
-                <asp:Button runat="server" ID="btnCancel" Text="Cancel" OnClick="btnCancel_Click" />
+                <asp:Button runat="server" ID="btnCancel" Text="Cancel" OnClick="BtnCancel_Click" />
                 <div class="control-message"></div>
             </div>
         </asp:Panel>

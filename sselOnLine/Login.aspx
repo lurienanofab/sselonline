@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <script src="<%=GetStaticUrl("lib/jquery/jquery.min.js")%>"></script>
+    <script src="//ssel-apps.eecs.umich.edu/static/lib/jquery/jquery.min.js"></script>
 
     <script>
         //this ensures the menu will not be displayed above the login form
